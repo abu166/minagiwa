@@ -47,3 +47,17 @@ export function cuttable(el) {
   el.innerHTML = `<span class="half hi" aria-hidden="true">${t}</span><span class="half lo" aria-hidden="true">${t}</span><i class="edge" aria-hidden="true"></i>`;
   return { top: $(".hi", el), bot: $(".lo", el), edge: $('.edge', el) };
 }
+
+// A line of narration: in at a, out at b.
+export function say(tl, el, a, b, { y = 30 } = {}) {
+  tl.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: 0.03, ease: 'power3.out' }, a)
+    .to(el, { autoAlpha: 0, y: -y * 0.7, duration: 0.025, ease: 'power2.in' }, b);
+}
+// A headline that lands letter by letter and is swept off.
+export function slamIn(tl, el, a, b) {
+  const c = chars(el);
+  tl.set(el, { autoAlpha: 1 }, a)
+    .fromTo(c, { yPercent: 130, autoAlpha: 0, rotate: (i) => (i % 3 - 1) * 14 }, { yPercent: 0, autoAlpha: 1, rotate: 0, stagger: 0.0016, duration: 0.05, ease: 'back.out(1.9)' }, a);
+  if (b) tl.to(c, { yPercent: -120, autoAlpha: 0, stagger: 0.0012, duration: 0.035, ease: 'power2.in' }, b);
+}
+export const NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
