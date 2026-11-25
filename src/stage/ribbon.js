@@ -110,7 +110,7 @@ export function ribbon(points, { radius = 0.42, len = 0.5, palette = WATER, foam
   for (const c of Object.keys(palette)) shared[c] = { value: new THREE.Color(palette[c]) };
   const mk = (hull, side) => new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms: { ...shared, uHull: { value: hull } }, side, depthTest, transparent: true, depthWrite: true });
   const group = new THREE.Group();
-  const body = new THREE.Mesh(g, mk(0, THREE.DoubleSide)), hull = new THREE.Mesh(g, mk(radius * 0.11, THREE.BackSide));
+  const body = new THREE.Mesh(g, mk(0, THREE.DoubleSide)), hull = new THREE.Mesh(g, mk(radius * 0.11, THREE.FrontSide));
   body.frustumCulled = hull.frustumCulled = false; hull.renderOrder = 10; body.renderOrder = 11;
   group.add(hull, body);
 
