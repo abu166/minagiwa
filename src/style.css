@@ -84,13 +84,13 @@ main { position: relative; z-index: 1; }
 /* ── two ── */
 .line { position: absolute; font-size: clamp(58px, 13vw, 260px); line-height: .9; letter-spacing: -.03em; visibility: hidden; }
 .line .half { display: block; color: #fff; text-shadow: .03em .035em 0 var(--ink); }
-.line .half.bot { position: absolute; inset: 0; }
-.line .half.top { clip-path: polygon(-20% -30%, 120% -30%, 120% 34%, -20% 66%); }
-.line .half.bot { clip-path: polygon(-20% 66%, 120% 34%, 120% 140%, -20% 140%); }
+.line .half.lo { position: absolute; inset: 0; }
+.line .half.hi { clip-path: polygon(-20% -30%, 120% -30%, 120% 34%, -20% 66%); }
+.line .half.lo { clip-path: polygon(-20% 66%, 120% 34%, 120% 140%, -20% 140%); }
 .line .edge { position: absolute; left: -20%; right: -20%; top: 50%; height: 7px; background: #fff; rotate: -5deg; transform-origin: left; scale: 1 1; visibility: hidden; box-shadow: 0 4px 0 var(--ink), 0 -4px 0 var(--ink); clip-path: polygon(0 50%, 12% 0, 100% 50%, 12% 100%); }
 .l1 { left: var(--pad); top: 15vh; }
 .l2 { right: calc(var(--pad) * 2.4); bottom: 15vh; text-align: right; }
-.l3 { left: 0; right: 0; top: 50%; translate: 0 -50%; text-align: center; font-size: clamp(80px, 21vw, 430px); }
+.l3 { left: 0; right: 0; top: calc(50% - .45em); text-align: center; font-size: clamp(80px, 21vw, 430px); }
 .aside { position: absolute; left: var(--pad); top: 18vh; max-width: 27em; font-weight: 700; font-size: 1.15em; background: #fff; color: var(--ink); padding: .7em 1.1em .8em; clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%); visibility: hidden; }
 
 /* ── three ── */

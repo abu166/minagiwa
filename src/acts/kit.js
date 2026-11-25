@@ -44,6 +44,6 @@ export function chars(el) {
 // Make a line that can be sliced: two clipped copies that part along a diagonal.
 export function cuttable(el) {
   const t = el.innerHTML; el.setAttribute('aria-label', el.textContent.trim());
-  el.innerHTML = `<span class="half top" aria-hidden="true">${t}</span><span class="half bot" aria-hidden="true">${t}</span><i class="edge" aria-hidden="true"></i>`;
-  return { top: $('.top', el), bot: $('.bot', el), edge: $('.edge', el) };
+  el.innerHTML = `<span class="half hi" aria-hidden="true">${t}</span><span class="half lo" aria-hidden="true">${t}</span><i class="edge" aria-hidden="true"></i>`;
+  return { top: $(".hi", el), bot: $(".lo", el), edge: $('.edge', el) };
 }

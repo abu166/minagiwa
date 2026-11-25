@@ -103,8 +103,8 @@ void main(){
     float a = atan(d.y,d.x)/6.2831853+.5, r = length(d);
     float boil = floor(uTime*12.);
     float n = vnoise(vec2(a*150.,boil*7.3)), n2 = hash(vec2(floor(a*150.),boil));
-    float inner = mix(1.25,.42,uLines)+n2*.28;
-    float w = (r-inner)*1.4;
+    float inner = mix(1.2,.36,uLines)+n2*.3;
+    float w = clamp((r-inner)*2.6,0.,1.3);
     if (n < w*.55*uLines) c = mix(c, uInk, step(n, w*.55*uLines));
   }
 
