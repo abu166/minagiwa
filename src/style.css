@@ -110,7 +110,7 @@ main > .act + .act { margin-top: -100vh; }
 
 /* ── voice ── */
 .vo { position: absolute; left: 50%; bottom: 9vh; width: max-content; max-width: min(86vw, 34em); margin-left: 0; translate: -50% 0; text-align: center; font: 700 clamp(19px, 2vw, 34px)/1.35 var(--body); color: #fff; paint-order: stroke; -webkit-text-stroke: 6px var(--ink); stroke-linejoin: round; visibility: hidden; z-index: 6; }
-.vo.side { left: var(--pad); bottom: auto; top: 44vh; translate: none; text-align: left; font-size: clamp(21px, 2.4vw, 42px); -webkit-text-stroke-color: #4a1420; }
+.vo.side { left: var(--pad); bottom: auto; top: 49vh; translate: none; text-align: left; font-size: clamp(21px, 2.4vw, 42px); -webkit-text-stroke-color: #4a1420; }
 .vo.hi { bottom: auto; top: 17vh; left: var(--pad); translate: none; text-align: left; }
 .big { position: absolute; font-size: clamp(48px, 8.6vw, 190px); line-height: .96; letter-spacing: -.025em; color: #fff; text-shadow: .035em .045em 0 var(--ink); visibility: hidden; z-index: 4; }
 .two-t { left: var(--pad); top: 17vh; text-shadow: .035em .045em 0 #7a1f14; }
@@ -175,6 +175,7 @@ footer { position: relative; z-index: 2; background: #05060f; color: #fff; min-h
   .cap p { max-width: 74vw; }
   .gate { font-size: 11.6vw; }
   .vo { bottom: 11vh; }
+  .vo.hi { top: 13vh; right: 34px; }
   .big { font-size: 13.4vw; }
   .el-t3, .tw-t1, .st-t { font-size: 10.4vw; }
   .count { left: 5vw; top: 44%; font-size: 34vh; -webkit-text-stroke-width: 14px; }

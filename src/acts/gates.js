@@ -28,7 +28,7 @@ export function gates({ stage, fx }) {
   tl.set({}, {}, 1);
   return {
     id: 'gates', name: 'A Thousand Gates', ink: 'blood', el, scene, camera, tl, clear: 0xc9efff,
-    out: { type: 'ink', span: 0.9, scarf: 3 },
+    out: { type: 'ink', span: 0.9, scarf: 4 },
     look: (p) => ({ glow: 0.35 + p * 0.4, thresh: 0.75 }),
     beats: [[0.6, () => { stage.impact(120); fx.rumble(); }]],
     resize(w, h) { u.uAsp.value = w / h; },

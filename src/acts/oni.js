@@ -8,7 +8,7 @@ import { cam, $, slamIn, seg, smooth, outExpo, isPortrait } from './kit.js';
 export function oni({ stage, fx, sound }) {
   const el = $('#oni'), scene = new THREE.Scene(), camera = cam(35);
   const bg = new Layer(tex('./art/oni_wide.webp'), { z: -4, cover: 1.2, order: 0, depth: tex('./art/oni_wide_d.webp'), water: 0.01, horizon: 0.25 });
-  const full = new Layer(tex('./art/onis.webp'), { z: -4, cover: 1.3, y: -0.13, order: 1, depth: tex('./art/onis_d.webp') });
+  const full = new Layer(tex('./art/onis.webp'), { z: -4, cover: 1.3, y: -0.14, order: 1, depth: tex('./art/onis_d.webp') });
   for (const l of [bg, full]) { l.place(camera); scene.add(l.mesh); }
   const pa = new Panel(tex('./art/eyes.webp'), { border: 8, edge: 0xffffff, order: 80, depth: tex('./art/eyes_d.webp') }), pb = new Panel(tex('./art/oni.webp'), { border: 8, edge: 0xffffff, order: 81, depth: tex('./art/oni_d.webp') });
   scene.add(pa.mesh, pb.mesh); pa.mesh.visible = pb.mesh.visible = false; const st = { a: -1.05, b: 1.05 };
@@ -26,7 +26,7 @@ export function oni({ stage, fx, sound }) {
   return {
     id: 'oni', name: 'What Came Up', ink: 'blood', el, scene, camera, tl, clear: 0x1a0208,
     out: { type: 'burn', span: 0.9, scarf: 1 },
-    look: (p) => ({ glow: 0.8, thresh: 0.55, letterbox: seg(p, 0.02, 0.08) * (1 - seg(p, 0.93, 0.98)), lines: seg(p, 0.86, 0.94) * 0.9 }),
+    look: (p) => ({ glow: 0.8, thresh: 0.55, letterbox: seg(p, 0.02, 0.08) * (1 - seg(p, 0.25, 0.28)) + seg(p, 0.46, 0.5) * (1 - seg(p, 0.93, 0.98)), lines: seg(p, 0.86, 0.94) * 0.9 }),
     beats: [
       [0.05, () => fx.rumble()], [0.28, () => { stage.impact(100); stage.kickLines(1); sound.hit(1); }],
       [0.53, () => { stage.impact(70); stage.flashWhite(0.5); fx.slam(innerWidth * 0.2, innerHeight * 0.35); }],
