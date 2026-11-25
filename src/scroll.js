@@ -16,6 +16,8 @@ export class Director {
   measure() {
     this.vh = innerHeight;
     for (const a of this.acts) { a.top = a.el.offsetTop; a.len = a.el.offsetHeight - this.vh; }
+    // an act's own clock runs out as the transition covers it, so nothing plays unseen
+    this.acts.forEach((a, i) => { a.run = i < this.acts.length - 1 ? a.len - this.vh * (0.12 + (a.out?.span ?? 0.8) * 0.6) : a.len; });
   }
   raf(ms, dt) {
     this.lenis.raf(ms);
@@ -27,7 +29,7 @@ export class Director {
     for (let i = 0; i < acts.length; i++) {
       const a = acts[i], n = acts[i + 1];
       const prev = a.p ?? 0;
-      a.p = clamp((this.y - a.top) / Math.max(1, a.len));
+      a.p = clamp((this.y - a.top) / Math.max(1, a.run));
       if (a.tl) a.tl.progress(a.p);
       if (a.beats && this.ready) for (const b of a.beats) if (prev < b[0] && a.p >= b[0] && a.p - prev < 0.35) b[1]();
       const begin = a.top - vh * 0.12;
@@ -49,5 +51,5 @@ export class Director {
     const cur = out.a;
     return { ...out, velocity: this.vel, letterbox: cur.letterbox?.(cur.p) ?? 0, lines: cur.lines?.(cur.p) ?? 0 };
   }
-  to(act, p = 0, o = {}) { this.lenis.scrollTo(act.top + act.len * p, { duration: 1.6, ...o }); }
+  to(act, p = 0, o = {}) { this.lenis.scrollTo(act.top + (act.run ?? act.len) * p, { duration: 1.6, ...o }); }
 }

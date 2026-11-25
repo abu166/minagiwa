@@ -32,7 +32,7 @@ export function forms({ stage, fx, go }) {
   const act = {
     id: 'forms', num: '三', name: 'Five Forms', el, scene, camera,
     out: { type: 'diamond', span: 0.9 },
-    tl: gsap.timeline({ paused: true }).fromTo('.forms-head', { yPercent: -140 }, { yPercent: 0, duration: 0.05, ease: 'back.out(1.6)' }, 0).to('.forms-head', { yPercent: -140, duration: 0.04, ease: 'power2.in' }, 0.95).set({}, {}, 1),
+    tl: gsap.timeline({ paused: true }).fromTo('.forms-head', { yPercent: -330 }, { yPercent: 0, duration: 0.05, ease: 'back.out(1.6)' }, 0).fromTo('.forms-tabs', { y: 160 }, { y: 0, duration: 0.05, ease: 'back.out(1.6)' }, 0.01).to('.forms-head', { yPercent: -330, duration: 0.04, ease: 'power2.in' }, 0.95).to('.forms-tabs', { y: 160, duration: 0.04, ease: 'power2.in' }, 0.95).set({}, {}, 1),
     beats: panels.map((p, i) => [at(i) - 0.035, () => { const r = p.getBoundingClientRect(); fx.land(r.left + r.width * 0.5, r.top + r.height * 0.9, i === 4); if (i === 4) stage.impact(80); }]),
     resize(w, h) {
       u.uAsp.value = w / h; track.style.transform = 'none';
