@@ -30,7 +30,7 @@ void main(){
 
 const FRAG = /* glsl */ `
 precision highp float;
-uniform sampler2D map;
+uniform sampler2D map, uDepth; uniform vec2 uPar; uniform float uHasDepth, uDolly;
 uniform float uTime, uOpacity, uTintAmt, uOutline, uWater, uHorizon, uRim, uCut;
 uniform vec3 uTint, uOutlineColor, uRimColor;
 uniform vec2 uTexel, uRimDir, uUvScale, uUvOffset;
@@ -43,6 +43,10 @@ void main(){
     float t = floor(uTime*12.)/12.;
     uv.x += (vnoise(vec2(uv.x*6.+t*.7, uv.y*90.-t*2.4))-.5)*uWater*d;
     uv.y += (vnoise(vec2(uv.x*9.-t, uv.y*60.+t*1.5))-.5)*uWater*.35*d;
+  }
+  if (uHasDepth > .5) { // a flat painting, pushed into relief by its depth map
+    float z = texture2D(uDepth, uv).r;
+    uv += uPar*(z-.45); uv = .5+(uv-.5)*(1.-uDolly*z);
   }
   vec4 c = texture2D(map, uv);
   c.rgb = mix(c.rgb, uTint, uTintAmt);
@@ -81,6 +85,7 @@ export class Layer {
       uOutline: { value: o.outline ?? 0 }, uOutlineColor: { value: new THREE.Color(o.outlineColor ?? 0xffffff) },
       uWater: { value: o.water ?? 0 }, uHorizon: { value: o.horizon ?? 0.4 },
       uRim: { value: o.rim ?? 0 }, uRimColor: { value: new THREE.Color(o.rimColor ?? 0xffffff) }, uRimDir: { value: new THREE.Vector2(...(o.rimDir ?? [6, 6])) },
+      uDepth: { value: o.depth ?? null }, uHasDepth: { value: o.depth ? 1 : 0 }, uPar: { value: new THREE.Vector2() }, uDolly: { value: 0 },
       uTexel: { value: new THREE.Vector2(1 / 1000, 1 / 1000) }, uUvScale: { value: new THREE.Vector2(1, 1) }, uUvOffset: { value: new THREE.Vector2() },
       uCut: { value: o.solid ? 0.5 : 0.01 },
     };

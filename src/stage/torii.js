@@ -3,7 +3,10 @@ import { NOISE } from './glsl.js';
 
 // A cel-shaded run of torii gates standing in shallow water. Flat light and one
 // shadow tone, inverted-hull ink lines, and fog that is stepped, not blended.
-const N = 46, GAP = 5.2;
+const N = 40, GAP = 5.2;
+
+// Given names, one per gate. The last is the one that matters.
+const NAMES = '蓮 花 湊 凪 葵 海 楓 律 澪 朔 紬 樹 雫 陸 渚 茜 仁 百合 大地 小春 直 千代 汐 光 桜 健 沙羅 勇 美波 圭 鈴 修 文 幸 岬 実 清 隼 和'.split(' ');
 
 const LIT_V = /* glsl */ `
 uniform float uHull; varying vec3 vN; varying float vD; varying vec3 vW; varying float vPart;
@@ -123,10 +126,40 @@ export function torii() {
   fill(new THREE.InstancedMesh(geo, mk(0, 0, THREE.FrontSide), N), false);
   fill(new THREE.InstancedMesh(geo, mk(0, 1, THREE.DoubleSide), N), true);
 
+  // name tablets, hung where the eye lands as each gate passes over
+  const COL = 8, ROW = 5, cell = 256, cv = document.createElement('canvas'), x = cv.getContext('2d');
+  cv.width = COL * cell; cv.height = ROW * cell * 1.5;
+  const paint = (i, s, hot) => {
+    const ox = (i % COL) * cell, oy = Math.floor(i / COL) * cell * 1.5;
+    x.fillStyle = hot ? '#ffffff' : '#f4efe2'; x.fillRect(ox, oy, cell, cell * 1.5);
+    x.strokeStyle = '#0b1233'; x.lineWidth = 22; x.strokeRect(ox + 11, oy + 11, cell - 22, cell * 1.5 - 22);
+    x.fillStyle = hot ? '#d3150f' : '#0b1233'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    const n = [...s], sz = n.length > 1 ? 150 : 190; x.font = `${sz}px "Yuji Boku"`;
+    n.forEach((ch, k) => x.fillText(ch, ox + cell / 2, oy + cell * 0.75 + (k - (n.length - 1) / 2) * sz * 1.02));
+  };
+  for (let i = 0; i < N - 1; i++) paint(i, NAMES[i % NAMES.length]);
+  paint(N - 1, '空', true);
+  const atlas = new THREE.CanvasTexture(cv); atlas.colorSpace = THREE.NoColorSpace; atlas.anisotropy = 4; atlas.flipY = false;
+  const pg = new THREE.PlaneGeometry(0.98, 1.47), off = new Float32Array(N * 2);
+  for (let i = 0; i < N; i++) off.set([i % COL, Math.floor(i / COL)], i * 2);
+  pg.setAttribute('off', new THREE.InstancedBufferAttribute(off, 2));
+  const tab = new THREE.InstancedMesh(pg, new THREE.ShaderMaterial({
+    uniforms: { ...u, map: { value: atlas } }, side: THREE.DoubleSide,
+    vertexShader: `attribute vec2 off; varying vec2 vT; varying float vD; void main(){ vT=(off+vec2(uv.x,1.-uv.y))/vec2(${COL}.,${ROW}.); vec4 mv=viewMatrix*modelMatrix*instanceMatrix*vec4(position,1.); vD=-mv.z; gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: `precision highp float; uniform sampler2D map; uniform vec3 cFog; varying vec2 vT; varying float vD; void main(){ vec3 c=texture2D(map,vT).rgb; float f=floor(clamp((vD-18.)/74.,0.,1.)*6.)/6.; gl_FragColor=vec4(mix(c,cFog,f*.8),1.); }`,
+  }), N);
+  for (let i = 0; i < N; i++) {
+    const z = -i * GAP, p = path(z), a = path(z - 1), last = i === N - 1;
+    q.setFromAxisAngle(up, Math.atan2(a.x - p.x, a.z - p.z) + Math.PI);
+    const f = new THREE.Vector3(0, 0, 0.34).applyQuaternion(q);
+    m4.compose(new THREE.Vector3(p.x + f.x, last ? 5.05 : 5.35, p.z + f.z), q, new THREE.Vector3(1, 1, 1).multiplyScalar(last ? 1.35 : 1)); tab.setMatrixAt(i, m4);
+  }
+  tab.frustumCulled = false; tab.renderOrder = 3; scene.add(tab);
+
   const water = new THREE.Mesh(new THREE.PlaneGeometry(260, 420), new THREE.ShaderMaterial({ vertexShader: WATER_V, fragmentShader: WATER_F, uniforms: u, transparent: true, depthWrite: false }));
   water.rotation.x = -Math.PI / 2; water.position.set(0, 0, -150); water.renderOrder = 5; scene.add(water);
 
   const sky = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ vertexShader: 'varying vec2 vUv; void main(){vUv=uv; gl_Position=vec4(position.xy,.9999,1.);}', fragmentShader: SKY_F, uniforms: u, depthWrite: false, depthTest: false }));
   sky.renderOrder = -10; sky.frustumCulled = false; scene.add(sky);
-  return { scene, u, length: N * GAP };
+  return { scene, u, length: N * GAP, last: -(N - 1) * GAP };
 }
