@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MINAGIWA 水際 — an animated film in seven cuts</title>
+  <meta name="description" content="A scroll-driven anime short. Ren learns the water forms, walks a thousand gates, and meets what came up with the tide." />
+  <meta name="theme-color" content="#0a1a4f" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e5261f'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='white'%3E水%3C/text%3E%3C/svg%3E" />
+</head>
+<body class="is-loading">
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <div id="loader">
+    <p class="loader-word" aria-hidden="true">水際</p>
+    <sakuga-progress label="Loading the film" done-label="Ready ✓"></sakuga-progress>
+  </div>
+
+  <header class="top">
+    <a class="mark" href="#moon" aria-label="Minagiwa, back to the start"><b>水際</b><span>Minagiwa</span></a>
+    <div class="top-r">
+      <label class="snd"><span>Sound</span><sakuga-toggle label="Sound"></sakuga-toggle></label>
+      <sakuga-button variant="secondary" id="jump-oath">Take the oath</sakuga-button>
+    </div>
+  </header>
+
+  <nav class="blade" aria-label="Cuts">
+    <svg viewBox="0 0 24 600" preserveAspectRatio="none" aria-hidden="true">
+      <path class="saya" d="M9 2 C14 200 14 400 10 598 L17 598 C21 400 21 200 16 2Z" />
+      <path class="steel" d="M10 2 C14.5 200 14.5 400 11.5 598 L14 598 C18 400 18 200 14 2Z" />
+      <path class="hamon" d="M14 2 C17 100 15 130 17.4 190 C19 240 16.5 270 17.4 330 C18 380 15.6 420 16.2 470 C16.4 520 14.6 560 14 598" />
+    </svg>
+    <ol></ol>
+  </nav>
+  <p class="slug" aria-hidden="true"><b></b><span></span></p>
+
+  <main>
+    <section id="moon" class="act" style="--len: 300">
+      <div class="pin">
+        <div class="hero">
+          <h1>Minagiwa</h1>
+          <p class="hero-sub">An animated film<br />in seven cuts</p>
+        </div>
+        <p class="hint"><span>Scroll to draw the blade</span><i></i></p>
+      </div>
+    </section>
+
+    <section id="breath" class="act" style="--len: 460">
+      <div class="pin">
+        <h2 class="line l1">Breathe in.</h2>
+        <h2 class="line l2">Hold the&nbsp;tide.</h2>
+        <h2 class="line l3">Let go.</h2>
+        <p class="aside">Ren grew up where the sea stops.<br />He was nine when he first made it&nbsp;wait.</p>
+      </div>
+    </section>
+
+    <section id="forms" class="act" style="--len: 600">
+      <div class="pin">
+        <div class="forms-head">
+          <h2>Five forms</h2>
+          <sakuga-tabs label="Forms">
+            <option>沈月</option><option>走潮</option><option>輪波</option><option>静雨</option><option>沸点</option>
+          </sakuga-tabs>
+        </div>
+        <div class="track">
+          <article class="panel" style="--k: #0d4fd1"><div class="cel"><img src="./art/form1.webp" alt="Ren diving underwater with his katana, light breaking through above" /></div><b>沈月</b><div class="cap"><h3>Sinking Moon</h3><p>Fall into the water before it falls on you.</p></div></article>
+          <article class="panel" style="--k: #00a7a0"><div class="cel"><img src="./art/form2.webp" alt="Ren sprinting across the surface of the sea" /></div><b>走潮</b><div class="cap"><h3>Running Tide</h3><p>Never two steps on the same wave.</p></div></article>
+          <article class="panel" style="--k: #f4c20d"><div class="cel"><img src="./art/form3.webp" alt="Ren spinning inside a ring of woodblock waves" /></div><b>輪波</b><div class="cap"><h3>Wheel Wave</h3><p>One turn. Everything inside it is wet.</p></div></article>
+          <article class="panel" style="--k: #3b3f8f"><div class="cel"><img src="./art/form4.webp" alt="Ren kneeling in the rain among floating lanterns" /></div><b>静雨</b><div class="cap"><h3>Still Rain</h3><p>The cut that happens while nobody moves.</p></div></article>
+          <article class="panel" style="--k: #f0431b"><div class="cel"><img src="./art/form5.webp" alt="Ren's blade, half water and half fire" /></div><b>沸点</b><div class="cap"><h3>Boiling Point</h3><p>He was told not to practise the fifth.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gates" class="act" style="--len: 420">
+      <div class="pin">
+        <h2 class="gate g1">A thousand gates</h2>
+        <h2 class="gate g2">each one a promise</h2>
+        <h2 class="gate g3">made to the sea</h2>
+        <h2 class="gate g4">The last is broken.</h2>
+      </div>
+    </section>
+
+    <section id="oni" class="act" style="--len: 400">
+      <div class="pin">
+        <h2 class="oni-t1">It came up<br />with the tide.</h2>
+        <div class="versus" aria-hidden="true">
+          <div class="vs vs-a"><img src="./art/eyes.webp" alt="" /></div>
+          <div class="vs vs-b"><img src="./art/oni.webp" alt="" /></div>
+        </div>
+        <h2 class="oni-t2"><span>It has no name.</span><span>It wants yours.</span></h2>
+      </div>
+    </section>
+
+    <section id="fire" class="act" style="--len: 400">
+      <div class="pin">
+        <h2 class="fire-t">Move water fast enough<br />and it burns.</h2>
+        <div class="heat">
+          <label id="heat-l">Heat the blade</label>
+          <sakuga-slider value="35" label="Blade heat" unit="°"></sakuga-slider>
+        </div>
+      </div>
+    </section>
+
+    <section id="dawn" class="act" style="--len: 300">
+      <div class="pin">
+        <h2 class="dawn-t">Then it was&nbsp;morning.</h2>
+        <form class="oath" novalidate>
+          <h3>Sign the last gate</h3>
+          <sakuga-input label="Your name" placeholder="Name" name="name"></sakuga-input>
+          <sakuga-radio label="Your form" name="form"><option value="水" selected>Water 水</option><option value="炎">Fire 炎</option></sakuga-radio>
+          <sakuga-checkbox name="vow">I will not look back</sakuga-checkbox>
+          <div class="oath-go"><sakuga-button type="button" id="seal">Seal it</sakuga-button><sakuga-tooltip text="Kept in this browser only"></sakuga-tooltip></div>
+        </form>
+        <div class="stamp" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="foot-big" aria-hidden="true">水際</p>
+    <div class="foot-row">
+      <p>An original story and cast.<br />Painted, animated and cut for the&nbsp;scroll.</p>
+      <p>Interface effects: <a href="https://github.com/finktheartist/sakuga-vfx">Sakuga VFX</a><br />Source: <a href="https://github.com/abu166/minagiwa">abu166/minagiwa</a></p>
+      <a class="again" href="#moon">Watch again</a>
+    </div>
+  </footer>
+
+  <sakuga-toast class="toast"></sakuga-toast>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

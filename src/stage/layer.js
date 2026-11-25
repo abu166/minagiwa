@@ -31,7 +31,7 @@ void main(){
 const FRAG = /* glsl */ `
 precision highp float;
 uniform sampler2D map;
-uniform float uTime, uOpacity, uTintAmt, uOutline, uWater, uHorizon, uRim, uZoomBlur;
+uniform float uTime, uOpacity, uTintAmt, uOutline, uWater, uHorizon, uRim, uCut;
 uniform vec3 uTint, uOutlineColor, uRimColor;
 uniform vec2 uTexel, uRimDir, uUvScale, uUvOffset;
 varying vec2 vUv;
@@ -59,7 +59,7 @@ void main(){
     c.rgb = mix(uOutlineColor, c.rgb, smoothstep(.35,.65,a));
     a = max(a,o);
   }
-  if (a < .01) discard;
+  if (a < uCut) discard;
   gl_FragColor = vec4(c.rgb, a*uOpacity);
 }`;
 
@@ -82,9 +82,9 @@ export class Layer {
       uWater: { value: o.water ?? 0 }, uHorizon: { value: o.horizon ?? 0.4 },
       uRim: { value: o.rim ?? 0 }, uRimColor: { value: new THREE.Color(o.rimColor ?? 0xffffff) }, uRimDir: { value: new THREE.Vector2(...(o.rimDir ?? [6, 6])) },
       uTexel: { value: new THREE.Vector2(1 / 1000, 1 / 1000) }, uUvScale: { value: new THREE.Vector2(1, 1) }, uUvOffset: { value: new THREE.Vector2() },
-      uZoomBlur: { value: 0 },
+      uCut: { value: o.solid ? 0.5 : 0.01 },
     };
-    const mat = new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms: this.u, transparent: true, depthWrite: false, depthTest: o.depthTest ?? false });
+    const mat = new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms: this.u, transparent: true, depthWrite: !!o.solid, depthTest: !!o.solid });
     this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, o.wind ? 24 : 1, o.wind ? 24 : 1), mat);
     this.mesh.renderOrder = o.order ?? this.o.z * 10;
     this.mesh.frustumCulled = false;
