@@ -29,8 +29,8 @@ export function fire({ stage, fx }) {
   const el = $('#fire'), scene = new THREE.Scene(), camera = cam(38);
   const u = { uTime: { value: 0 }, uAsp: { value: 1 }, uP: { value: 0 }, uHeat: { value: 0.35 } };
   scene.add(backdrop(FIRE, u));
-  const kanji = new Layer(textTex('炎', { font: 'Yuji Boku', size: 900, color: '#12020a' }), { z: -2.5, h: 1.15, order: 1 });
-  const hero = new Layer(tex('./art/fire_char.webp'), { z: 0, h: 1.04, y: -0.02, order: 5, solid: true, wind: 0.02, outline: 6, outlineColor: 0x12020a, portrait: { h: 0.72 } });
+  const kanji = new Layer(textTex('炎', { font: 'Yuji Boku', size: 900, color: '#12020a' }), { z: -2.5, x: -0.16, h: 1.15, order: 1, portrait: { x: 0 } });
+  const hero = new Layer(tex('./art/fire_char.webp'), { z: 0, x: 0.07, h: 1.14, y: -0.06, order: 5, solid: true, wind: 0.02, outline: 6, outlineColor: 0x12020a, portrait: { x: 0, y: 0, h: 0.78 } });
   for (const l of [kanji, hero]) { l.place(camera); scene.add(l.mesh); }
   const pts = [[8, -5, 2], [4.8, -3.2, 0.5], [2.6, -2.2, -1.8]];
   for (let i = 0; i <= 14; i++) { const a = 2.4 + i / 14 * Math.PI * 3, k = 1 - i / 14 * 0.1; pts.push([Math.sin(a) * 3.3 * k, -2 + i / 14 * 3.6, Math.cos(a) * 2.3]); }

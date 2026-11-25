@@ -35,7 +35,7 @@ export function breath({ stage, fx }) {
   const el = $('#breath'), scene = new THREE.Scene(), camera = cam(38);
   const u = { uTime: { value: 0 }, uAsp: { value: 1 }, uP: { value: 0 }, c1: { value: new THREE.Color(0x0b2f9e) }, c2: { value: new THREE.Color(0x1549cf) }, c3: { value: new THREE.Color(0x2f7bf0) } };
   scene.add(backdrop(SEIGAIHA, u));
-  const hero = new Layer(tex('./art/slash.webp'), { z: 0, x: 0, y: 0, h: 0.92, order: 5, solid: true, wind: 0.02, outline: 7, outlineColor: 0xffffff, portrait: { h: 0.5 } });
+  const hero = new Layer(tex('./art/slash.webp'), { z: 0, x: 0.08, y: 0, h: 0.96, order: 5, solid: true, wind: 0.02, outline: 7, outlineColor: 0xffffff, portrait: { h: 0.5 } });
   hero.place(camera); scene.add(hero.mesh);
 
   // A helix that swims round the figure, then off toward the lens.

@@ -7,7 +7,7 @@ import { cam, $, chars, seg, smooth } from './kit.js';
 export function dawn({ stage, fx }) {
   const el = $('#dawn'), scene = new THREE.Scene(), camera = cam(35);
   const bg = new Layer(tex('./art/dawn_bg.webp'), { z: -8, cover: 1.18, order: 0 });
-  const hero = new Layer(tex('./art/dawn_char.webp'), { z: -1, x: 0.2, h: 0.74, anchor: 'bottom', order: 10, wind: 0.014, pivot: [0.5, 0.35], portrait: { x: 0.2, h: 0.5 } });
+  const hero = new Layer(tex('./art/dawn_char.webp'), { z: -1, x: 0.23, h: 0.82, anchor: 'bottom', order: 10, wind: 0.014, pivot: [0.5, 0.35], portrait: { x: 0.2, h: 0.5 } });
   for (const l of [bg, hero]) { l.place(camera); scene.add(l.mesh); }
   const petals = particles({ kind: 'petal', n: 130, box: [22, 12, 12], size: 0.085, c1: 0xffffff, c2: 0xff8fae, seed: 41 });
   const near = particles({ kind: 'petal', n: 22, box: [14, 9, 3], size: 0.2, c1: 0xff4a3a, c2: 0xd01f2b, seed: 43, order: 70 });

@@ -49,7 +49,7 @@ export function forms({ stage, fx, go }) {
       track.style.transform = `translate3d(${innerWidth / 2 - cx + inn * innerWidth * 1.1 - outt * innerWidth * 0.9}px,0,0) skewX(${(-velocity * 7).toFixed(2)}deg)`;
       for (let k = 0; k < n; k++) {
         const d = k - (i + e) + inn * 1.2 - outt;
-        imgs[k].style.transform = `translate3d(${(d * -15).toFixed(2)}%,0,0) scale(${(1.12 + Math.min(0.5, Math.abs(d) * 0.22)).toFixed(3)})`;
+        imgs[k].style.transform = `translate3d(${(d * -7).toFixed(2)}%,0,0) scale(${(1.12 + Math.min(0.5, Math.abs(d) * 0.22)).toFixed(3)})`;
         big[k].style.transform = `translate3d(${(d * 46).toFixed(2)}%,${(d * -8).toFixed(2)}%,0)`;
         caps[k].style.transform = `translate3d(${(d * 70).toFixed(2)}px,0,0)`;
       }
