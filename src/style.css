@@ -102,6 +102,7 @@ main { position: relative; z-index: 1; }
 .cel { position: absolute; inset: 0; clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%); background: var(--ink); }
 .cel::after { content: ''; position: absolute; inset: 0; background: var(--ink); clip-path: polygon(evenodd, 9% 0, 100% 0, 91% 100%, 0 100%, 9% 0, calc(9% + 6px) 8px, calc(100% - 9px) 8px, calc(91% - 6px) calc(100% - 8px), 9px calc(100% - 8px), calc(9% + 6px) 8px); }
 .cel img { position: absolute; inset: -2% -8%; width: 116%; height: 104%; object-fit: cover; object-position: 50% 20%; will-change: transform; }
+.panel:first-child > b { right: auto; left: -1.5vw; }
 .panel:first-child img { object-position: 50% 92%; }
 .panel > b { position: absolute; right: -4vw; top: -5vh; font: 400 clamp(110px, 25vh, 320px)/.95 'Yuji Boku', serif; writing-mode: vertical-rl; color: #fff; paint-order: stroke; -webkit-text-stroke: 14px var(--ink); z-index: 2; will-change: transform; letter-spacing: -.06em; }
 .cap { position: absolute; left: -3vw; bottom: 5vh; z-index: 3; will-change: transform; }
@@ -115,7 +116,7 @@ main { position: relative; z-index: 1; }
 .g4 { color: #fff; font-size: clamp(48px, 10vw, 210px); text-shadow: .04em .05em 0 #3a030c; }
 
 /* ── five ── */
-.oni-t1 { position: absolute; left: var(--pad); bottom: 19vh; font-size: clamp(50px, 9.4vw, 200px); letter-spacing: -.02em; text-shadow: .035em .045em 0 #2a0207; transform-origin: 0 100%; }
+.oni-t1 { position: absolute; left: var(--pad); top: 17vh; font-size: clamp(50px, 8vw, 170px); letter-spacing: -.02em; text-shadow: .035em .045em 0 #2a0207; transform-origin: 0 0; }
 .versus { position: absolute; inset: 0; }
 .vs { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
 .vs img { width: 100%; height: 100%; object-fit: cover; }
@@ -134,8 +135,8 @@ main { position: relative; z-index: 1; }
 .heat label { font: 400 24px/1 var(--display); }
 
 /* ── seven ── */
-.dawn-t { position: absolute; left: var(--pad); top: 14vh; font-size: clamp(44px, min(7.4vw, 13vh), 170px); letter-spacing: -.025em; color: #fff; text-shadow: .035em .045em 0 #b3261e; }
-.oath { position: absolute; left: var(--pad); bottom: 11vh; width: min(420px, calc(100vw - 2 * var(--pad))); background: #fff; color: var(--ink); padding: 26px 30px 28px; display: grid; gap: 18px; justify-items: start; box-shadow: 10px 12px 0 var(--red); border: 4px solid var(--ink); visibility: hidden; }
+.dawn-t { position: absolute; left: var(--pad); top: 12.5vh; font-size: clamp(44px, min(7vw, 12vh), 170px); letter-spacing: -.025em; color: #fff; text-shadow: .035em .045em 0 #b3261e; }
+.oath { position: absolute; left: var(--pad); bottom: 8vh; width: min(420px, calc(100vw - 2 * var(--pad))); background: #fff; color: var(--ink); padding: 26px 30px 28px; display: grid; gap: 18px; justify-items: start; box-shadow: 10px 12px 0 var(--red); border: 4px solid var(--ink); visibility: hidden; }
 .oath h3 { font-size: 34px; }
 .oath > :is(sakuga-input, sakuga-radio, sakuga-checkbox) { zoom: 1.15; }
 .oath-go { display: flex; gap: 18px; align-items: center; }
@@ -171,7 +172,8 @@ footer { position: relative; z-index: 2; background: var(--red); color: #fff; ov
   .forms-tabs { zoom: 1; bottom: 56px; }
   .track { top: 19vh; bottom: 19vh; gap: 16vw; }
   .panel { width: 80vw; }
-  .panel:first-child img { object-position: 50% 92%; }
+  .panel:first-child > b { right: auto; left: -1.5vw; }
+.panel:first-child img { object-position: 50% 92%; }
 .panel > b { font-size: 19vh; right: -5vw; -webkit-text-stroke-width: 9px; }
   .cap { left: -4vw; }
   .cap h3 { font-size: 11vw; }
