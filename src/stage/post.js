@@ -144,10 +144,10 @@ ${NOISE}
 // shards of a cracked pane: cells in warped polar space so they radiate from the hit
 vec4 cells(vec2 d){
   float r = length(d), a = atan(d.y,d.x)/6.2831853;
-  vec2 g = vec2(a*17., log(r+.04)*3.1);
+  vec2 g = vec2(a*23., log(r+.05)*1.25+hash(vec2(floor(a*23.),1.))*.0);
   vec2 ip = floor(g), f = fract(g); float f1=9.,f2=9.; vec2 id=vec2(0.);
   for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){
-    vec2 c = ip+vec2(float(x),float(y)); vec2 w = vec2(mod(c.x+17.,17.),c.y);
+    vec2 c = ip+vec2(float(x),float(y)); vec2 w = vec2(mod(c.x+23.,23.),c.y);
     vec2 o = vec2(hash(w),hash(w+7.7)); vec2 q = vec2(float(x),float(y))+o*.9-f; float dd=dot(q,q);
     if(dd<f1){f2=f1;f1=dd;id=w;} else if(dd<f2) f2=dd;
   }
@@ -168,7 +168,7 @@ void main(){
     float on = step(k.w, uCrack*1.35*(.65+.35*hash(k.yz)));
     vec2 off = (vec2(hash(k.yz+1.),hash(k.yz+3.))-.5)*.05*uCrack*on;
     uv += off;
-    float th = (.018+.05*uCrack*smoothstep(1.,0.,k.w))*on;
+    float th = (.012+.035*uCrack*smoothstep(1.1,0.,k.w))*on;
     crackLine = step(k.x, th);
   }
 

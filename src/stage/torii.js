@@ -152,7 +152,7 @@ export function torii() {
     const z = -i * GAP, p = path(z), a = path(z - 1), last = i === N - 1;
     q.setFromAxisAngle(up, Math.atan2(a.x - p.x, a.z - p.z) + Math.PI);
     const f = new THREE.Vector3(0, 0, 0.34).applyQuaternion(q);
-    m4.compose(new THREE.Vector3(p.x + f.x, last ? 5.05 : 5.35, p.z + f.z), q, new THREE.Vector3(1, 1, 1).multiplyScalar(last ? 1.35 : 1)); tab.setMatrixAt(i, m4);
+    m4.compose(new THREE.Vector3(p.x + f.x, last ? 4.75 : 5.35, p.z + f.z), q, new THREE.Vector3(1, 1, 1).multiplyScalar(last ? 1.7 : 1)); tab.setMatrixAt(i, m4);
   }
   tab.frustumCulled = false; tab.renderOrder = 3; scene.add(tab);
 

@@ -37,10 +37,10 @@ export function gates({ stage, fx }) {
       u.uTime.value = time; petals.u.uTime.value = time;
       // rush the run, then slow to a stop under the last tablet
       const r = p < 0.6 ? p / 0.6 * 0.94 : 0.94 + (1 - (1 - seg(p, 0.6, 0.95)) ** 3) * 0.06;
-      const z = 6 + r * (last + 4.6), c = path(z), f = path(z - 14), near = smooth(seg(p, 0.56, 0.8));
+      const z = 6 + r * (last - 1.1), c = path(z), f = path(z - 14), near = smooth(seg(p, 0.56, 0.8));
       const shake = seg(p, 0.58, 0.64) * (1 - seg(p, 0.72, 0.8)) * 0.07, s = Math.floor(time * 14);
       camera.position.set(c.x + mouse.x * 0.5 + Math.sin(s * 9.1) * shake, 2.1 + Math.sin(p * 20) * 0.12 + mouse.y * 0.3 + Math.cos(s * 7.3) * shake, z);
-      camera.up.set(0, 1, 0); camera.lookAt(f.x + mouse.x * 0.6, 2.7 + near * 3.0, z - 14);
+      camera.up.set(0, 1, 0); camera.lookAt(f.x + mouse.x * 0.6, 2.7 + near * 5.4, z - 14);
       camera.rotateZ((c.x - f.x) * 0.045 - velocity * 0.05);
       camera.fov = 58 + Math.abs(velocity) * 22; camera.updateProjectionMatrix();
       petals.mesh.position.copy(camera.position); petals.u.uScroll.value = 0;

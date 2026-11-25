@@ -29,7 +29,7 @@ export class Panel {
     g.setIndex([0, 1, 2, 0, 2, 3]);
     const V = () => ({ value: new THREE.Vector2() });
     this.u = { map: { value: map }, depth: { value: depth ?? null }, uHasDepth: { value: depth ? 1 : 0 }, uC: V(), uS: V(), uView: V(), uPar: V(), q0: V(), q1: V(), q2: V(), q3: V(), uBorder: { value: border }, uEdge: { value: new THREE.Color(edge) }, uDim: { value: 0 } };
-    this.mesh = new THREE.Mesh(g, new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms: this.u, side: THREE.DoubleSide, depthTest: false, depthWrite: false }));
+    this.mesh = new THREE.Mesh(g, new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms: this.u, side: THREE.DoubleSide, transparent: true, depthTest: false, depthWrite: false }));
     this.mesh.frustumCulled = false; this.mesh.renderOrder = order;
   }
   // q: four [x,y] corners in px, focus: where in the painting to look, zoom >= 1 covers

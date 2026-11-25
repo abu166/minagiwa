@@ -66,14 +66,13 @@ async function boot() {
   // and draw each act once off-screen, so the first real frame of a cut is never the slow one
   for (const a of acts) stage.render({ a, mix: 0, type: 'cut', velocity: 0 }, 0.016);
 
-  const foot = $('.foot-big');
+  const foot = $('footer');
   let last = performance.now(), shown = false;
   const frame = (ms) => {
     const dt = Math.min(0.05, Math.max(0.001, (ms - last) / 1000)); last = ms;
     const s = director.raf(ms, dt);
     const fr = foot.getBoundingClientRect();
-    if (fr.top > 0 || fr.bottom > 0) { if (fr.top < innerHeight) foot.style.transform = `translateX(${(fr.top / innerHeight - 0.2) * -26}%) skewX(${-director.vel * 14}deg)`; }
-    document.body.classList.toggle('at-foot', fr.top < innerHeight);
+    document.body.classList.toggle('at-foot', fr.top < innerHeight * 0.9 && fr.bottom > 0);
     blade.style.setProperty('--drawn', (director.y / end()).toFixed(4));
     sound.velocity(director.vel);
     stage.render(s, dt);

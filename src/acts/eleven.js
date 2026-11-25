@@ -38,7 +38,7 @@ export function eleven({ stage, fx, sound }) {
       const k = p < A || p > 0.735 ? 0 : Math.min(11, 1 + Math.floor(seg(p, A, B) * 11));
       if (k !== n) {
         if (k > n && k > 0 && this.el.classList.contains('is-live')) { stage.beat(1); sound.heart(1); }
-        n = k; count.textContent = NUM[k]; count.classList.remove('hit'); void count.offsetWidth; if (k) count.classList.add('hit');
+        n = k; count.textContent = [...NUM[k]].join('\n'); count.classList.toggle('dbl', NUM[k].length > 1); count.classList.remove('hit'); void count.offsetWidth; if (k) count.classList.add('hit');
         el.style.setProperty('--k', k);
       }
       if (!frozen) held = time; 

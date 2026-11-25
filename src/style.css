@@ -110,12 +110,14 @@ main > .act + .act { margin-top: -100vh; }
 
 /* ── voice ── */
 .vo { position: absolute; left: 50%; bottom: 9vh; width: max-content; max-width: min(86vw, 34em); margin-left: 0; translate: -50% 0; text-align: center; font: 700 clamp(19px, 2vw, 34px)/1.35 var(--body); color: #fff; paint-order: stroke; -webkit-text-stroke: 6px var(--ink); stroke-linejoin: round; visibility: hidden; z-index: 6; }
+.vo.hi { bottom: auto; top: 17vh; left: var(--pad); translate: none; text-align: left; }
 .big { position: absolute; font-size: clamp(48px, 8.6vw, 190px); line-height: .96; letter-spacing: -.025em; color: #fff; text-shadow: .035em .045em 0 var(--ink); visibility: hidden; z-index: 4; }
 .two-t { left: var(--pad); top: 17vh; text-shadow: .035em .045em 0 #7a1f14; }
 .el-t1 { left: var(--pad); top: 17vh; font-size: clamp(44px, 7.6vw, 170px); }
 .el-t2 { left: var(--pad); bottom: 17vh; }
 .el-t3 { left: 0; right: 0; top: calc(50% - 1em); text-align: center; text-shadow: none; font-size: clamp(38px, 6.6vw, 150px); }
-.count { position: absolute; right: 9vw; top: 50%; translate: 0 -50%; font: 400 min(62vh, 44vw)/.9 'Yuji Boku', serif; writing-mode: vertical-rl; letter-spacing: -.12em; color: #fff; paint-order: stroke; -webkit-text-stroke: 22px #050a1e; z-index: 5; }
+.count { position: absolute; right: 9vw; top: 50%; translate: 0 -50%; font: 400 min(62vh, 44vw)/.9 'Yuji Boku', serif; white-space: pre; text-align: center; color: #fff; paint-order: stroke; -webkit-text-stroke: 22px #050a1e; z-index: 5; }
+.count.dbl { font-size: min(39vh, 30vw); line-height: .98; }
 .count.hit { animation: hit .42s cubic-bezier(.1, 1.5, .3, 1) both; }
 @keyframes hit { from { scale: 1.9; opacity: .2; rotate: 5deg; } 40% { color: #e5261f; } }
 .g4 { left: var(--pad); bottom: 12vh; }
@@ -174,7 +176,8 @@ footer { position: relative; z-index: 2; background: #05060f; color: #fff; min-h
   .vo { bottom: 11vh; }
   .big { font-size: 13.4vw; }
   .el-t3, .tw-t1, .st-t { font-size: 10.4vw; }
-  .count { right: 2vw; top: 44%; font-size: 40vh; -webkit-text-stroke-width: 14px; }
+  .count { right: 2vw; top: 44%; font-size: 34vh; -webkit-text-stroke-width: 14px; }
+  .count.dbl { font-size: 24vh; }
   .oni-t3 { font-size: 7.6vw; }
   .oni-t3 span:first-child { left: 5vw; top: 34vh; }
   .oni-t3 span:last-child { right: 8vw; top: 62vh; }
@@ -183,4 +186,5 @@ footer { position: relative; z-index: 2; background: #05060f; color: #fff; min-h
   .g4, .g5 { bottom: 14vh; }
   .call sakuga-button { zoom: 1.4; }
 }
-@media (prefers-reduced-motion: reduce) { .hint i, .slug b, .slug span, .count.hit { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .hint i, .slug b, .slug span, .count.dbl { font-size: min(39vh, 30vw); line-height: .98; }
+.count.hit { animation: none !important; } }
