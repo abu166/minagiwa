@@ -1,5 +1,7 @@
 # MINAGIWA 水際
 
+**[Watch it live](https://abu166.github.io/minagiwa/)**
+
 A scroll-driven anime short in seven cuts. One WebGL stage, pinned acts, and drawn transitions (iris, ink sweep, diamond, paper burn, blade cut) that move with your scroll.
 
 ## Run
