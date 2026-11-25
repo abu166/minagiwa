@@ -144,6 +144,8 @@ main { position: relative; z-index: 1; }
 @keyframes stamp { from { scale: 3.4; opacity: 0; rotate: 18deg; } }
 .toast { position: fixed; left: 50%; translate: -50% 0; bottom: 34px; z-index: 30; pointer-events: none; }
 
+body.at-foot .slug { translate: 0 80px; }
+.slug { transition: translate .3s; }
 footer { position: relative; z-index: 2; background: var(--red); color: #fff; overflow: clip; padding: 9vh var(--pad) 30px; clip-path: polygon(0 9vh, 100% 0, 100% 100%, 0 100%); margin-top: -4vh; }
 .foot-big { font: 400 46vw/.86 'Yuji Boku', serif; white-space: nowrap; letter-spacing: -.04em; text-align: center; color: var(--ink); will-change: transform; }
 .foot-row { display: flex; flex-wrap: wrap; gap: 20px 60px; align-items: flex-end; padding-top: 4vh; font-weight: 700; }
@@ -161,7 +163,7 @@ footer { position: relative; z-index: 2; background: var(--red); color: #fff; ov
   .hero h1 { font-size: 17.5vw; }
   .hero-sub { text-align: left; padding: 0; }
   .slug { bottom: 18px; }
-  .hint { left: auto; right: 34px; translate: none; align-items: flex-end; max-width: 8em; text-align: right; }
+  .hint { left: auto; right: 34px; translate: none; align-items: flex-end; white-space: nowrap; }
   .line { font-size: 19vw; }
   .l3 { font-size: 25vw; }
   .aside { font-size: 1em; right: 34px; top: 13vh; }
@@ -173,7 +175,8 @@ footer { position: relative; z-index: 2; background: var(--red); color: #fff; ov
   .cap { left: -4vw; }
   .cap h3 { font-size: 11vw; }
   .cap p { max-width: 74vw; }
-  .gate { font-size: 14vw; }
+  .gate { font-size: 12.4vw; }
+  .g4 { font-size: 13vw; }
   .oni-t1 { font-size: 14vw; }
   .vs-a { clip-path: polygon(0 12%, 100% 12%, 100% 36%, 0 50%); }
   .vs-b { clip-path: polygon(0 52%, 100% 38%, 100% 88%, 0 88%); }

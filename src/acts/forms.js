@@ -3,9 +3,10 @@ import gsap from 'gsap';
 import { cam, backdrop, $, $$, seg, lerp, isPortrait } from './kit.js';
 
 const PAPER = /* glsl */ `
-uniform vec3 cA,cB; uniform float uShift;
+uniform vec3 cNow,cNext; uniform float uShift,uWipe;
 void main(){
   vec2 p = (vUv-.5)*vec2(uAsp,1.);
+  vec3 cA = p.x-p.y*.28 > (.5-uWipe)*(uAsp+.9) ? cNext : cNow, cB = cA*.84;
   vec3 c = cA;
   vec2 q = mat2(.866,-.5,.5,.866)*(p+vec2(uShift*.35,0.))*46.;
   float tone = smoothstep(-.5,.75, p.y*-1.+p.x*.35+sin(uShift*2.)*.2);
@@ -20,7 +21,7 @@ void main(){
 
 export function forms({ stage, fx, go }) {
   const el = $('#forms'), scene = new THREE.Scene(), camera = cam(35);
-  const u = { uTime: { value: 0 }, uAsp: { value: 1 }, uP: { value: 0 }, uShift: { value: 0 }, cA: { value: new THREE.Color(0x0d4fd1) }, cB: { value: new THREE.Color(0x0a3da6) } };
+  const u = { uTime: { value: 0 }, uAsp: { value: 1 }, uP: { value: 0 }, uShift: { value: 0 }, uWipe: { value: 0 }, cNow: { value: new THREE.Color(0x0d4fd1) }, cNext: { value: new THREE.Color(0x0d4fd1) } };
   scene.add(backdrop(PAPER, u));
   const panels = $$('.panel', el), track = $('.track', el), tabs = $('sakuga-tabs', el);
   const cols = panels.map((p) => new THREE.Color(p.style.getPropertyValue('--k').trim()));
@@ -52,8 +53,7 @@ export function forms({ stage, fx, go }) {
         big[k].style.transform = `translate3d(${(d * 46).toFixed(2)}%,${(d * -8).toFixed(2)}%,0)`;
         caps[k].style.transform = `translate3d(${(d * 70).toFixed(2)}px,0,0)`;
       }
-      const c = cols[i].clone().lerp(cols[i + 1], Math.round(e * 6) / 6);
-      u.cA.value.copy(c); u.cB.value.copy(c).multiplyScalar(0.84);
+      u.cNow.value.copy(cols[i]); u.cNext.value.copy(cols[i + 1]); u.uWipe.value = e;
       const s = Math.round(i + e);
       if (s !== sel) { sel = s; quiet = true; tabs.selected = s; quiet = false; }
     },

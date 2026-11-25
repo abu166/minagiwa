@@ -65,6 +65,7 @@ async function boot() {
     const s = director.raf(ms, dt);
     const fr = foot.getBoundingClientRect();
     if (fr.top > 0 || fr.bottom > 0) { if (fr.top < innerHeight) foot.style.transform = `translateX(${(fr.top / innerHeight - 0.2) * -26}%) skewX(${-director.vel * 14}deg)`; }
+    document.body.classList.toggle('at-foot', fr.top < innerHeight);
     blade.style.setProperty('--drawn', (director.y / end()).toFixed(4));
     sound.velocity(director.vel);
     stage.render({ ...s, letterbox: rm ? 0 : s.letterbox }, dt);
