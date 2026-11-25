@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { createPost, TRANSITION } from './post.js';
 
 THREE.ColorManagement.enabled = false;
+const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // One fixed canvas. Each act owns a scene and a camera; the stage renders the
 // act (or two, mid-transition) into targets and composites them.
@@ -41,9 +42,9 @@ export class Stage {
   }
 
   // Beats the timeline can call.
-  impact(ms = 90) { this.invertUntil = performance.now() + ms; }
-  flashWhite(v = 1) { this.flash = v; }
-  kickLines(v = 1) { this.linesKick = Math.max(this.linesKick, v); }
+  impact(ms = 90) { if (!rm) this.invertUntil = performance.now() + ms; }
+  flashWhite(v = 1) { if (!rm) this.flash = v; }
+  kickLines(v = 1) { if (!rm) this.linesKick = Math.max(this.linesKick, v); }
 
   // state: { a, b, mix, type, center, velocity, letterbox, lines }
   render(state, dt) {
