@@ -56,7 +56,9 @@ async function boot() {
   wire({ director, acts, sound, fx, stage });
 
   // compile shaders before the curtain goes up
-  for (const a of acts) { a.p = 0; stage.renderer.compile(a.scene, a.camera); }
+  for (const a of acts) { a.p = 0; stage.renderer.compile(a.scene, a.camera); a.scene.traverse((o) => { const t = o.material?.uniforms?.map?.value; if (t?.image) stage.renderer.initTexture(t); }); }
+  // and draw each act once off-screen, so the first real frame of a cut is never the slow one
+  for (const a of acts) stage.render({ a, mix: 0, type: 'cut', velocity: 0 }, 0.016);
 
   const foot = $('.foot-big');
   let last = performance.now(), shown = false;
