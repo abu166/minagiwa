@@ -4,34 +4,38 @@ import { pending } from './stage/layer.js';
 import { Director } from './scroll.js';
 import { makeSound } from './ui/sound.js';
 import { makeFx } from './ui/fx.js';
-import { $, $$, rm } from './acts/kit.js';
+import { $, $$, rm, NUM } from './acts/kit.js';
 import { moon } from './acts/moon.js';
 import { breath } from './acts/breath.js';
 import { forms } from './acts/forms.js';
 import { gates } from './acts/gates.js';
 import { oni } from './acts/oni.js';
 import { fire } from './acts/fire.js';
-import { dawn } from './acts/dawn.js';
+import { two } from './acts/two.js';
+import { eleven } from './acts/eleven.js';
+import { twelve } from './acts/twelve.js';
+import { sky } from './acts/sky.js';
+import { stinger } from './acts/stinger.js';
 
 // The kit ships plain scripts that register elements; load them as they are.
-const KIT = ['button', 'progress', 'toggle', 'tabs', 'slider', 'input', 'radio', 'checkbox', 'tooltip', 'toast'];
+const KIT = ['progress', 'button', 'toggle'];
 const script = (n) => new Promise((r) => { const s = document.createElement('script'); s.src = `./sakuga-vfx/${n}.js`; s.onload = s.onerror = r; document.head.append(s); });
 
 async function boot() {
   history.scrollRestoration = 'manual'; scrollTo(0, 0);
   await script('progress');
   const bar = $('#loader sakuga-progress'), loaded = { n: 0 };
-  const total = KIT.length + 2 + 12;
+  const total = KIT.length + 2 + 38;
   const step = () => bar.set?.(Math.min(0.97, ++loaded.n / total));
   await Promise.all([
     ...KIT.filter((k) => k !== 'progress').map((k) => script(k).then(step)),
-    ...[['Reggae One', 'Minagiwa'], ['Yuji Boku', '水際炎沈月走潮輪波静雨沸点一二三四五六七']].map(([f, t]) => document.fonts.load(`100px "${f}"`, t).then(step)),
+    ...[['Reggae One', 'Minagiwa'], ['Yuji Boku', '水際炎空沈月走潮輪波静雨沸点一二三四五六七八九十蓮花湊凪葵海楓律澪朔紬樹雫陸渚茜仁百合大地小春直千代汐光桜健沙羅勇美波圭鈴修文幸岬実清隼和']].map(([f, t]) => document.fonts.load(`100px "${f}"`, t).then(step)),
   ]);
 
   const sound = makeSound(), fx = makeFx(sound);
   const stage = new Stage($('#stage'));
-  const ctx = { stage, fx, go: (id, p) => { const a = acts.find((x) => x.id === id); director.to(a, p, { duration: 1.1 }); } };
-  const acts = [moon, breath, forms, gates, oni, fire, dawn].map((f) => stage.add(f(ctx)));
+  const ctx = { stage, fx, sound, go: (id, p, duration = 1.1) => { const a = acts.find((x) => x.id === id); director.to(a, p, { duration }); } };
+  const acts = [moon, two, eleven, breath, forms, gates, oni, fire, twelve, sky, stinger].map((f) => stage.add(f(ctx)));
   pending.forEach((p) => p.then(step));
   const imgs = $$('main img').map((i) => i.decode().catch(() => { }));
   await Promise.all([...pending, ...imgs]);
@@ -40,20 +44,22 @@ async function boot() {
   const blade = $('.blade'), slug = $('.slug'), list = $('ol', blade);
   const director = new Director(acts, {
     onAct(a, i) {
-      $('b', slug).textContent = a.num; $('span', slug).textContent = a.name;
+      $('b', slug).textContent = a.hidden ? '' : NUM[i + 1]; $('span', slug).textContent = a.name;
+      fx.ink(a.ink);
       slug.classList.remove('swap'); void slug.offsetWidth; slug.classList.add('swap');
       $$('button', list).forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
     },
   });
   const end = () => document.documentElement.scrollHeight - innerHeight;
-  acts.forEach((a) => {
+  acts.forEach((a, i) => {
+    if (a.hidden) return;
     const li = document.createElement('li'), b = document.createElement('button');
-    b.textContent = a.num; b.setAttribute('aria-label', `Cut ${a.num}: ${a.name}`); b.onclick = () => director.to(a, 0.04);
+    b.textContent = NUM[i + 1]; b.setAttribute('aria-label', `Cut ${i + 1}: ${a.name}`); b.onclick = () => director.to(a, 0.04);
     li.append(b); list.append(li);
   });
   const placeTicks = () => [...list.children].forEach((li, i) => { li.style.top = `${acts[i].top / end() * 100}%`; });
   placeTicks(); addEventListener('resize', placeTicks);
-  wire({ director, acts, sound, fx, stage });
+  wire({ director, sound, stage });
 
   // compile shaders before the curtain goes up
   for (const a of acts) { a.p = 0; stage.renderer.compile(a.scene, a.camera); a.scene.traverse((o) => { const t = o.material?.uniforms?.map?.value; if (t?.image) stage.renderer.initTexture(t); }); }
@@ -70,7 +76,7 @@ async function boot() {
     document.body.classList.toggle('at-foot', fr.top < innerHeight);
     blade.style.setProperty('--drawn', (director.y / end()).toFixed(4));
     sound.velocity(director.vel);
-    stage.render({ ...s, letterbox: rm ? 0 : s.letterbox }, dt);
+    stage.render(s, dt);
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
@@ -86,30 +92,21 @@ async function boot() {
   bar.set?.(1); setTimeout(open, 3500);
 }
 
-function wire({ director, acts, sound, fx, stage }) {
-  const dawnAct = acts.at(-1), toast = $('.toast');
+function wire({ director, sound, stage }) {
   $('.snd sakuga-toggle').addEventListener('change', (e) => sound.set(e.currentTarget.checked));
-  $('#jump-oath').addEventListener('click', () => director.to(dawnAct, 1, { duration: 2.4 }));
   $$('a[href="#moon"]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); director.lenis.scrollTo(0, { duration: 2.2 }); }));
 
-  const form = $('.oath'), name = $('sakuga-input', form), radio = $('sakuga-radio', form), vow = $('sakuga-checkbox', form), btn = $('#seal');
-  const stamp = (n, k) => {
-    const b = document.createElement('b'), s = document.createElement('small');
-    b.textContent = k; s.textContent = n; b.append(s); $('.stamp').replaceChildren(b);
-  };
-  const seal = () => {
-    const n = (name.value || '').trim().slice(0, 18);
-    if (!n) return toast.show('The gate needs a name');
-    if (!vow.checked) return toast.show('Make the vow first');
-    stamp(n, radio.value || '水');
-    try { localStorage.setItem('minagiwa-oath', JSON.stringify([n, radio.value || '水'])); } catch { }
-    btn.done(); stage.impact(90);
-    const r = $('.stamp').getBoundingClientRect(); fx.boom(r.left + r.width / 2, r.top + r.height / 2);
-    toast.show('Sealed');
-  };
-  btn.addEventListener('click', seal);
-  form.addEventListener('submit', (e) => { e.preventDefault(); seal(); });
-  try { const o = JSON.parse(localStorage.getItem('minagiwa-oath')); if (o) stamp(...o); } catch { }
+  // Play: the film runs itself at a watchable pace until you take the wheel back.
+  const play = $('#play'); let on = false;
+  const stop = () => { if (!on) return; on = false; play.textContent = 'Play'; director.lenis.scrollTo(director.lenis.scroll, { immediate: true }); };
+  play.addEventListener('click', () => {
+    if (on) return stop();
+    const end = document.documentElement.scrollHeight - innerHeight, left = end - director.lenis.scroll;
+    if (left < 40) return director.lenis.scrollTo(0, { duration: 2 });
+    on = true; play.textContent = 'Pause';
+    director.lenis.scrollTo(end, { duration: left / innerHeight * 3.4, easing: (t) => t, onComplete: () => { on = false; play.textContent = 'Play'; } });
+  });
+  for (const ev of ['wheel', 'touchstart', 'keydown']) addEventListener(ev, (e) => { if (!(ev === 'keydown' && ['Enter', 'Tab'].includes(e.key)) && !play.contains(e.target)) stop(); }, { passive: true });
 }
 
 boot();

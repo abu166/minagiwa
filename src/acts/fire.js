@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { Layer, tex, textTex } from '../stage/layer.js';
 import { ribbon, FLAME } from '../stage/ribbon.js';
 import { particles } from '../stage/particles.js';
-import { cam, backdrop, $, chars, seg, smooth, lerp, isPortrait } from './kit.js';
+import { cam, backdrop, $, slamIn, seg, smooth, lerp, isPortrait } from './kit.js';
 
 // Drawn fire: stepped tongues with hard edges, climbing.
 const FIRE = /* glsl */ `
@@ -39,24 +39,19 @@ export function fire({ stage, fx }) {
   scene.add(flame.group);
   const em = particles({ kind: 'ember', n: 260, box: [18, 12, 12], size: 0.055, vel: [0.3, 1.9, 0.2], c1: 0xffd23d, c2: 0xff5a1f, seed: 30 });
   scene.add(em.mesh);
-  const t = chars($('.fire-t', el));
-  const slider = $('sakuga-slider', el), st = { heat: 0.35, to: 0.35 };
-  slider.addEventListener('input', () => { st.to = slider.value / 100; fx.ping(st.to); });
-  slider.addEventListener('change', () => { if (slider.value > 85) { stage.impact(110); stage.kickLines(1); fx.boom(innerWidth / 2, innerHeight * 0.42); } });
+  const st = { heat: 0.35 };
   const tl = gsap.timeline({ paused: true });
-  tl.fromTo(t, { yPercent: 140, rotate: (i) => (i % 3 - 1) * 18, autoAlpha: 0 }, { yPercent: 0, rotate: 0, autoAlpha: 1, stagger: 0.0025, duration: 0.07, ease: 'back.out(1.8)' }, 0.16)
-    .fromTo('.heat', { autoAlpha: 0, y: 70 }, { autoAlpha: 1, y: 0, duration: 0.08, ease: 'back.out(1.6)' }, 0.34)
-    .to('.heat', { autoAlpha: 0, y: 60, duration: 0.05 }, 0.8)
-    .to(t, { yPercent: -120, autoAlpha: 0, stagger: 0.002, duration: 0.05, ease: 'power2.in' }, 0.8).set({}, {}, 1);
+  slamIn(tl, $('.fire-t', el), 0.14, 0.5); slamIn(tl, $('.fire-t2', el), 0.58, 0.94);
+  tl.set({}, {}, 1);
   return {
-    id: 'fire', num: '六', name: 'Boiling Point', el, scene, camera, tl, clear: 0x1a0208,
-    out: { type: 'iris', span: 0.95, center: [0.5, 0.5] },
-    lines: (p) => 0.5 * seg(p, 0, 0.05) * (1 - seg(p, 0.1, 0.2)) + seg(st.heat, 0.8, 1) * 0.5,
-    beats: [[0.14, () => { stage.flashWhite(0.7); fx.boom(innerWidth * 0.5, innerHeight * 0.4); }]],
+    id: 'fire', name: 'One Cut', ink: 'fire', el, scene, camera, tl, clear: 0x1a0208,
+    out: { type: 'white', span: 0.7, ease: (t) => t, scarf: 2 },
+    look: (p) => ({ glow: 0.85, thresh: 0.6, lines: 0.5 * seg(p, 0, 0.05) * (1 - seg(p, 0.1, 0.2)) + seg(p, 0.6, 0.9) * 0.7 }),
+    beats: [[0.14, () => { stage.flashWhite(0.7); fx.boom(innerWidth * 0.5, innerHeight * 0.4); }], [0.57, () => { stage.impact(100); stage.kickLines(1); }]],
     resize(w, h) { u.uAsp.value = w / h; kanji.place(camera); hero.place(camera); flame.group.scale.setScalar(isPortrait() ? 0.6 : 1); },
     update({ time, mouse, dt }) {
       const p = this.p ?? 0;
-      st.heat = lerp(st.heat, st.to, 1 - Math.exp(-dt * 5));
+      st.heat = lerp(st.heat, 0.25 + p * 0.75, 1 - Math.exp(-dt * 5));
       for (const o of [u, hero.u, flame.u, em.u]) o.uTime.value = time;
       u.uP.value = p; u.uHeat.value = st.heat - 0.25 + p * 0.25;
       flame.u.uHead.value = 0.1 + p * 1.5;

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MINAGIWA 水際 — an animated film in seven cuts</title>
-  <meta name="description" content="A scroll-driven anime short. Ren learns the water forms, walks a thousand gates, and meets what came up with the tide." />
+  <title>MINAGIWA 水際 — an animated film in ten cuts</title>
+  <meta name="description" content="A scroll-driven anime short. Ren held the sea back for eleven heartbeats. His brother needed twelve." />
   <meta name="theme-color" content="#0a1a4f" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e5261f'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='white'%3E水%3C/text%3E%3C/svg%3E" />
 </head>
@@ -20,7 +20,7 @@
     <a class="mark" href="#moon" aria-label="Minagiwa, back to the start"><b>水際</b><span>Minagiwa</span></a>
     <div class="top-r">
       <label class="snd"><span>Sound</span><sakuga-toggle label="Sound"></sakuga-toggle></label>
-      <sakuga-button variant="secondary" id="jump-oath">Take the oath</sakuga-button>
+      <sakuga-button variant="secondary" id="play">Play</sakuga-button>
     </div>
   </header>
 
@@ -35,98 +35,126 @@
   <p class="slug" aria-hidden="true"><b></b><span></span></p>
 
   <main>
-    <section id="moon" class="act" style="--len: 360">
+    <section id="moon" class="act" style="--len: 340">
       <div class="pin">
         <div class="hero">
           <h1>Minagiwa</h1>
-          <p class="hero-sub">An animated film<br />in seven cuts</p>
+          <p class="hero-sub">An animated film<br />in ten cuts</p>
         </div>
+        <p class="vo v1">They say the sea here keeps whatever it takes.</p>
         <p class="hint"><span>Scroll to draw the blade</span><i></i></p>
       </div>
     </section>
 
-    <section id="breath" class="act" style="--len: 540">
+    <section id="two" class="act" style="--len: 330">
       <div class="pin">
+        <h2 class="big two-t">There were<br />two of us.</h2>
+        <p class="vo v1">I was nine. Sora was seven.</p>
+        <p class="vo v2">We had one scarf.</p>
+      </div>
+    </section>
+
+    <section id="eleven" class="act" style="--len: 620">
+      <div class="pin">
+        <h2 class="big el-t1">That winter<br />the sea came<br />for him.</h2>
+        <h2 class="big el-t2">I held it back.</h2>
+        <b class="count" aria-hidden="true"></b>
+        <h2 class="big el-t3">Eleven heartbeats.<br />He needed twelve.</h2>
+      </div>
+    </section>
+
+    <section id="breath" class="act" style="--len: 480">
+      <div class="pin">
+        <p class="vo v1">My teacher said holding the sea takes three steps.</p>
         <h2 class="line l1">Breathe in.</h2>
         <h2 class="line l2">Hold the&nbsp;tide.</h2>
         <h2 class="line l3">Let go.</h2>
-        <p class="aside">Ren grew up where the sea stops.<br />He was nine when he first made it&nbsp;wait.</p>
+        <p class="vo v2">I never learned the third.</p>
       </div>
     </section>
 
-    <section id="forms" class="act" style="--len: 680">
+    <section id="forms" class="act" style="--len: 600">
       <div class="pin">
-        <div class="forms-head">
-          <h2>Five forms</h2>
-        </div>
-        <sakuga-tabs class="forms-tabs" label="Forms">
-          <option>沈月</option><option>走潮</option><option>輪波</option><option>静雨</option><option>沸点</option>
-        </sakuga-tabs>
+        <div class="forms-head"><h2>Ten winters, five forms</h2></div>
         <div class="track">
-          <article class="panel" style="--k: #0d4fd1"><div class="cel"><img src="./art/form1.webp" alt="Ren diving underwater with his katana, light breaking through above" /></div><b>沈月</b><div class="cap"><h3>Sinking Moon</h3><p>Fall into the water before it falls on you.</p></div></article>
-          <article class="panel" style="--k: #00a7a0"><div class="cel"><img src="./art/form2.webp" alt="Ren sprinting across the surface of the sea" /></div><b>走潮</b><div class="cap"><h3>Running Tide</h3><p>Never two steps on the same wave.</p></div></article>
-          <article class="panel" style="--k: #f4c20d"><div class="cel"><img src="./art/form3.webp" alt="Ren spinning inside a ring of woodblock waves" /></div><b>輪波</b><div class="cap"><h3>Wheel Wave</h3><p>One turn. Everything inside it is wet.</p></div></article>
-          <article class="panel" style="--k: #3b3f8f"><div class="cel"><img src="./art/form4.webp" alt="Ren kneeling in the rain among floating lanterns" /></div><b>静雨</b><div class="cap"><h3>Still Rain</h3><p>The cut that happens while nobody moves.</p></div></article>
-          <article class="panel" style="--k: #f0431b"><div class="cel"><img src="./art/form5.webp" alt="Ren's blade, half water and half fire" /></div><b>沸点</b><div class="cap"><h3>Boiling Point</h3><p>He was told not to practise the fifth.</p></div></article>
+          <article class="panel" style="--k: #0d4fd1" aria-label="Ren diving underwater with his katana"><b>沈月</b><div class="cap"><h3>Sinking Moon</h3><p>Winter one. I went down to see how far he fell.</p></div></article>
+          <article class="panel" style="--k: #00a7a0" aria-label="Ren sprinting across the sea"><b>走潮</b><div class="cap"><h3>Running Tide</h3><p>Winter three. Fast enough now. Three winters late.</p></div></article>
+          <article class="panel" style="--k: #f4c20d" aria-label="Ren inside a ring of woodblock waves"><b>輪波</b><div class="cap"><h3>Wheel Wave</h3><p>Winter five. I made the sea turn around.</p></div></article>
+          <article class="panel" style="--k: #3b3f8f" aria-label="Ren kneeling in the rain among lanterns"><b>静雨</b><div class="cap"><h3>Still Rain</h3><p>Winter eight. I lit him a lantern. It stayed lit.</p></div></article>
+          <article class="panel" style="--k: #f0431b" aria-label="Ren, eyes burning, steam rising"><b>沸点</b><div class="cap"><h3>Boiling Point</h3><p>Winter ten. The fifth form is only for killing.</p></div></article>
         </div>
       </div>
     </section>
 
-    <section id="gates" class="act" style="--len: 520">
+    <section id="gates" class="act" style="--len: 580">
       <div class="pin">
-        <h2 class="gate g1">A thousand gates</h2>
-        <h2 class="gate g2">each one a promise</h2>
-        <h2 class="gate g3">made to the sea</h2>
-        <h2 class="gate g4">The last is broken.</h2>
+        <h2 class="gate g1">One gate for every name</h2>
+        <h2 class="gate g2">the sea has kept</h2>
+        <h2 class="gate g3">I read them all</h2>
+        <p class="vo v1">The last one can be read two ways.</p>
+        <h2 class="big g4">Empty.</h2>
+        <h2 class="big g5">Or Sora.</h2>
       </div>
     </section>
 
-    <section id="oni" class="act" style="--len: 560">
+    <section id="oni" class="act" style="--len: 520">
       <div class="pin">
-        <h2 class="oni-t1">It came up<br />with the tide.</h2>
-        <div class="versus" aria-hidden="true">
-          <div class="vs vs-a"><img src="./art/eyes.webp" alt="" /></div>
-          <div class="vs vs-b"><img src="./art/oni.webp" alt="" /></div>
-        </div>
-        <h2 class="oni-t2"><span>It has no name.</span><span>It wants yours.</span></h2>
+        <h2 class="big oni-t1">Something<br />came up.</h2>
+        <h2 class="big oni-t2">It wore half<br />my scarf.</h2>
+        <h2 class="oni-t3"><span>It knew all five forms.</span><span>The sea had been watching.</span></h2>
       </div>
     </section>
 
-    <section id="fire" class="act" style="--len: 460">
+    <section id="fire" class="act" style="--len: 420">
       <div class="pin">
-        <h2 class="fire-t">Move water<br />fast enough<br />and it burns.</h2>
-        <div class="heat">
-          <label id="heat-l">Heat the blade</label>
-          <sakuga-slider value="35" label="Blade heat" unit="°"></sakuga-slider>
-        </div>
+        <h2 class="big fire-t">Move water<br />fast enough<br />and it burns.</h2>
+        <h2 class="big fire-t2">One cut.<br />Ten winters<br />for one cut.</h2>
       </div>
     </section>
 
-    <section id="dawn" class="act" style="--len: 300">
+    <section id="twelve" class="act" style="--len: 560">
       <div class="pin">
-        <h2 class="dawn-t">Then it was<br />morning.</h2>
-        <form class="oath" novalidate>
-          <h3>Sign the last gate</h3>
-          <sakuga-input label="Your name" placeholder="Name" name="name"></sakuga-input>
-          <sakuga-radio label="Your form" name="form"><option value="水" selected>Water 水</option><option value="炎">Fire 炎</option></sakuga-radio>
-          <sakuga-checkbox name="vow">I will not look back</sakuga-checkbox>
-          <div class="oath-go"><sakuga-button type="button" id="seal">Seal it</sakuga-button><sakuga-tooltip text="Kept in this browser only"></sakuga-tooltip></div>
-        </form>
-        <div class="stamp" aria-live="polite"></div>
+        <h2 class="big tw-t1">Then my heart<br />started counting.</h2>
+        <b class="count" aria-hidden="true"></b>
+        <p class="vo v1">Breathe in. Hold the tide.</p>
+        <div class="call"><sakuga-button id="name">Say his name</sakuga-button></div>
+        <p class="vo v2">One more.</p>
+      </div>
+    </section>
+
+    <section id="sky" class="act" style="--len: 620">
+      <div class="pin">
+        <h2 class="big sk-t1">Sora.</h2>
+        <p class="vo v1">And I let go.</p>
+        <p class="vo v2">There is a third way to read it.</p>
+        <h2 class="big sk-t2">Sky.</h2>
       </div>
     </section>
   </main>
 
   <footer>
-    <p class="foot-big" aria-hidden="true">水際</p>
-    <div class="foot-row">
-      <p>An original story and cast.<br />Painted, animated and cut for the&nbsp;scroll.</p>
-      <p>Interface effects: <a href="https://github.com/finktheartist/sakuga-vfx">Sakuga VFX</a><br />Source: <a href="https://github.com/abu166/minagiwa">abu166/minagiwa</a></p>
-      <a class="again" href="#moon">Watch again</a>
+    <div class="roll">
+      <p class="roll-k" aria-hidden="true">水際</p>
+      <dl>
+        <dt>Ren</dt><dd>who held it</dd>
+        <dt>Sora</dt><dd>who waited</dd>
+        <dt>The sea</dt><dd>as itself</dd>
+      </dl>
+      <dl>
+        <dt>Interface effects</dt><dd><a href="https://github.com/finktheartist/sakuga-vfx">Sakuga VFX</a></dd>
+        <dt>Film and source</dt><dd><a href="https://github.com/abu166/minagiwa">abu166/minagiwa</a></dd>
+      </dl>
+      <p class="roll-end">A scarf was harmed in the making of this film.</p>
     </div>
   </footer>
 
-  <sakuga-toast class="toast"></sakuga-toast>
+  <section id="stinger" class="act" style="--len: 260">
+    <div class="pin">
+      <p class="vo v1">The next winter, the other lanterns started to rise.</p>
+      <h2 class="big st-t">Nine hundred and<br />ninety-nine to go.</h2>
+    </div>
+  </section>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

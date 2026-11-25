@@ -4,17 +4,25 @@ import { rm } from '../acts/kit.js';
 
 export function makeFx(sound) {
   const S = window.SakugaFX, n = () => { };
-  if (!S || rm) return { boom: n, cut: n, land: n, slam: n, rumble: n, bigSlash: n, ping: n };
+  if (!S || rm) return { boom: n, cut: n, land: n, slam: n, rumble: n, bigSlash: n, ink: n };
   const X = (x) => x + scrollX, Y = (y) => y + scrollY;
   const R = (a, b) => a + Math.random() * (b - a);
+  // the kit's effects, re-inked for each part of the story
+  const INK = {
+    water: { fill: '#ffffff', shade: '#8fc8ff', line: '#0e3fb4', accent: '#e5261f', ink: '#07102b', sfx: ['#07102b', '#ffffff'] },
+    dusk: { fill: '#fffaf0', shade: '#ffc98a', line: '#b3421e', accent: '#e5261f', ink: '#3a0d12', sfx: ['#3a0d12', '#fffaf0'] },
+    blood: { fill: '#fff1ec', shade: '#ff6a55', line: '#8a0d1c', accent: '#ffffff', ink: '#1d0208', sfx: ['#1d0208', '#ffffff'] },
+    fire: { fill: '#fff6cf', shade: '#ffb21e', line: '#c22a08', accent: '#e5261f', ink: '#2a0408', sfx: ['#2a0408', '#fff3c4'] },
+  };
   return {
-    boom(x, y) {
+    ink(k) { const c = INK[k]; if (c) Object.assign(S.P, c, { sfx: c.sfx }); },
+    boom(x, y, word = true) {
       x = X(x); y = Y(y);
       const r = Math.min(innerWidth, innerHeight) * 0.26;
       S.burst(x, y, { r, spikes: 19, life: 0.42 });
       S.shards(x, y, { n: 22, speed: 620, size: 13, life: 1.1, arc: Math.PI * 2 });
       for (let i = 0; i < 6; i++) { const a = i / 6 * S.TAU + 0.3; S.later(60 + i * 18, () => S.puff(x + Math.cos(a) * r * 0.8, y + Math.sin(a) * r * 0.5, { n: 5, size: 30, vx: Math.cos(a) * 130, vy: Math.sin(a) * 60 - 30, life: 1 })); }
-      S.later(50, () => S.sfx('don', x + r * 0.95, y - r * 0.7, { size: Math.min(280, innerWidth * 0.3), life: 1.2 }));
+      if (word) S.later(50, () => S.sfx('don', x + r * 0.95, y - r * 0.7, { size: Math.min(280, innerWidth * 0.3), life: 1.2 }));
       sound.hit(1);
     },
     cut(fx, fy) {
@@ -44,6 +52,5 @@ export function makeFx(sound) {
       S.later(120, () => S.sfx('shu', X(innerWidth * 0.66), Y(innerHeight * 0.3), { size: Math.min(380, innerWidth * 0.5), life: 1.1, ...S.hollow() }));
       sound.swish(1.6); sound.hit(1);
     },
-    ping: (v) => sound.ping(v),
   };
 }

@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { Layer, tex } from '../stage/layer.js';
 import { ribbon, WATER } from '../stage/ribbon.js';
 import { particles } from '../stage/particles.js';
-import { cam, backdrop, $, cuttable, seg, smooth, isPortrait } from './kit.js';
+import { cam, backdrop, $, cuttable, say, seg, smooth, isPortrait } from './kit.js';
 
 // Seigaiha: the old overlapping-wave pattern, breathing.
 const SEIGAIHA = /* glsl */ `
@@ -58,12 +58,12 @@ export function breath({ stage, fx }) {
       .to(h.bot, { xPercent: -9, yPercent: 65, rotate: -5, duration: 0.07, ease: 'power3.in' }, b)
       .to(line, { autoAlpha: 0, duration: 0.025 }, b + 0.05);
   });
-  tl.fromTo('#breath .aside', { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.06 }, 0.36).to('#breath .aside', { autoAlpha: 0, y: -80, duration: 0.05, ease: 'power2.in' }, 0.56).set({}, {}, 1);
+  say(tl, '#breath .v1', 0.02, 0.25); say(tl, '#breath .v2', 0.7, 0.96); tl.set({}, {}, 1);
 
   return {
-    id: 'breath', num: '二', name: 'Breath', el, scene, camera, tl,
-    out: { type: 'ink', span: 0.8 },
-    lines: (p) => (p > 0.58 && p < 0.9 ? 0.75 * seg(p, 0.58, 0.66) * (1 - seg(p, 0.84, 0.9)) : 0),
+    id: 'breath', name: 'Three Steps', ink: 'water', el, scene, camera, tl,
+    out: { type: 'slash', span: 1.0, ease: (t) => t, scarf: 0 },
+    look: (p) => ({ glow: 0.4, lines: p > 0.58 && p < 0.9 ? 0.75 * seg(p, 0.58, 0.66) * (1 - seg(p, 0.84, 0.9)) : 0 }),
     beats: [
       [0.26, () => fx.cut(0.3, 0.5)], [0.53, () => fx.cut(0.68, 0.5)],
       [0.62, () => { stage.impact(110); stage.kickLines(1); fx.boom(innerWidth * 0.5, innerHeight * 0.5); }],
