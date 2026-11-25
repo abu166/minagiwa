@@ -9,7 +9,7 @@ import { cam, $, say, slamIn, seg, smooth, outExpo, NUM } from './kit.js';
 const A = 0.3, B = 0.7;
 export function eleven({ stage, fx, sound }) {
   const el = $('#eleven'), scene = new THREE.Scene(), camera = cam(35);
-  const wave = new Layer(tex('./art/wave.webp'), { z: -4, cover: 1.22, y: 0.07, order: 0, depth: tex('./art/wave_d.webp') });
+  const wave = new Layer(tex('./art/wave.webp'), { z: -4, cover: 1.22, y: 0.07, order: 0, portrait: { cover: 1.22, y: 0.07, x: -0.5 }, depth: tex('./art/wave_d.webp') });
   const drift = new Layer(tex('./art/scarf.webp'), { z: -4, cover: 1.2, order: 5, depth: tex('./art/scarf_d.webp'), water: 0.006, horizon: 1.4 });
   const hold = new Panel(tex('./art/hold.webp'), { border: 9, edge: 0xffffff, order: 8 });
   for (const l of [wave, drift]) { l.place(camera); scene.add(l.mesh); }
@@ -52,8 +52,8 @@ export function eleven({ stage, fx, sound }) {
       const w = innerWidth, h = innerHeight, on = k >= 4 && k <= 7, on2 = k >= 10;
       hold.mesh.visible = false;
       if (on || on2) {
-        const y0 = on ? 0.3 : 0.16, y1 = on ? 0.72 : 0.84, t = on ? seg(p, A + (3 / 11) * (B - A), A + (3.5 / 11) * (B - A)) : 1, x = (1 - outExpo(t)) * -w * 1.1;
-        hold.set([[x - 20, h * (y0 + 0.07)], [x + w + 20, h * (y0 - 0.03)], [x + w + 20, h * (y1 - 0.06)], [x - 20, h * (y1 + 0.04)]], { w, h, zoom: 1.26 + k * 0.02, focus: [0.08, 0.42] });
+        const y0 = on ? (w < h ? 0.5 : 0.3) : 0.16, y1 = on ? 0.72 : 0.84, t = on ? seg(p, A + (3 / 11) * (B - A), A + (3.5 / 11) * (B - A)) : 1, x = (1 - outExpo(t)) * -w * 1.1;
+        hold.set([[x - 20, h * (y0 + 0.07)], [x + w + 20, h * (y0 - 0.03)], [x + w + 20, h * (y1 - 0.06)], [x - 20, h * (y1 + 0.04)]], { w, h, zoom: 1.26 + k * 0.02, focus: [w < h ? 0.3 : 0.08, 0.42] });
       }
     },
   };

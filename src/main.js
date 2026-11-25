@@ -97,7 +97,7 @@ function wire({ director, sound, stage }) {
 
   // Play: the film runs itself at a watchable pace until you take the wheel back.
   const play = $('#play'); let on = false;
-  const stop = () => { if (!on) return; on = false; play.textContent = 'Play'; director.lenis.scrollTo(director.lenis.scroll, { immediate: true }); };
+  const stop = () => { if (!on) return; on = false; play.textContent = 'Play'; director.lenis.stop(); director.lenis.start(); };
   play.addEventListener('click', () => {
     if (on) return stop();
     const end = document.documentElement.scrollHeight - innerHeight, left = end - director.lenis.scroll;

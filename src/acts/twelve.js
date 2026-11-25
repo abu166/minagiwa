@@ -8,7 +8,7 @@ const A = 0.16, B = 0.58;
 export function twelve({ stage, fx, sound, go }) {
   const el = $('#twelve'), scene = new THREE.Scene(), camera = cam(35);
   const oni = new Layer(tex('./art/oni.webp'), { z: -4, cover: 1.15, order: 0, depth: tex('./art/oni_d.webp'), portrait: { x: 0.12, cover: 1.15 } });
-  const mask = new Layer(tex('./art/mask.webp'), { z: -4, cover: 1.15, order: 1, depth: tex('./art/mask_d.webp') });
+  const mask = new Layer(tex('./art/mask.webp'), { z: -4, cover: 1.15, order: 1, depth: tex('./art/mask_d.webp'), portrait: { cover: 1.15, x: -0.5 } });
   for (const l of [oni, mask]) { l.place(camera); scene.add(l.mesh); }
   const count = $('.count', el), btn = $('#name'); let n = -1;
   btn.addEventListener('click', () => { sound.heart(1.4); stage.impact(120); go('twelve', 1, 1.5); setTimeout(() => go('sky', 0.16, 2.6), 1500); });

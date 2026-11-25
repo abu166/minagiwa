@@ -177,10 +177,11 @@ footer { position: relative; z-index: 2; background: #05060f; color: #fff; min-h
   .vo { bottom: 11vh; }
   .vo.hi { top: 13vh; right: 34px; }
   .big { font-size: 13.4vw; }
-  .el-t3, .tw-t1, .st-t { font-size: 10.4vw; }
-  .count { left: 5vw; top: 44%; font-size: 34vh; -webkit-text-stroke-width: 14px; }
+  .el-t3, .tw-t1, .st-t { font-size: 8.8vw; }
+  .tw-t1 { font-size: 10vw; }
+  .count { left: 5vw; top: 34%; font-size: 34vh; -webkit-text-stroke-width: 14px; }
   .count.dbl { font-size: 24vh; }
-  .oni-t3 { font-size: 7.6vw; }
+  .oni-t3 { font-size: 6.6vw; }
   .oni-t3 span:first-child { left: 5vw; top: 34vh; }
   .oni-t3 span:last-child { right: 8vw; top: 62vh; }
   .fire-t, .fire-t2 { font-size: 11vw; top: 12vh; bottom: auto; }
