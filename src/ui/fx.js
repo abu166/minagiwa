@@ -43,7 +43,7 @@ export function makeFx(sound) {
     rumble() {
       const w = Math.min(420, innerWidth * 0.5);
       S.sfx('gogo', X(innerWidth * 0.78), Y(innerHeight * 0.3), { size: w, life: 1.9 });
-      S.later(260, () => S.sfx('gogo', X(innerWidth * 0.42), Y(innerHeight * 0.26), { size: w * 0.7, life: 1.7, rot: 0.12 }));
+      S.later(260, () => S.sfx('gogo', X(innerWidth * 0.7), Y(innerHeight * 0.74), { size: w * 0.7, life: 1.7, rot: 0.12 }));
       for (let i = 0; i < 9; i++) S.later(i * 70, () => S.shards(X(R(0.1, 0.9) * innerWidth), Y(innerHeight * 0.98), { n: 3, speed: 260, size: 8, dir: -Math.PI / 2, arc: 0.6, grav: 200, life: 1.2 }));
       sound.rumble();
     },

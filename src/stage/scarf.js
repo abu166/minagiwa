@@ -24,7 +24,7 @@ void main(){
   p += nrm*flut*.055*smoothstep(0.,.35,s);
   float tw = cos(s*8.5-t*3.4+1.2);
   vFace = tw;
-  float w = uWidth*(.22+.78*abs(tw))*(.55+.45*smoothstep(0.,.12,s));
+  float w = uWidth*(.22+.78*abs(tw))*(.12+.88*smoothstep(0.,.16,s));
   w += uInkPass;
   p += nrm*side*w;
   if (uInkPass>0. && s<.004) p += tan_*uInkPass;
@@ -36,7 +36,7 @@ precision highp float; varying float vS, vFace, vT; uniform float uInkPass;
 ${NOISE}
 void main(){
   // the torn end
-  float tear = .93+.06*vnoise(vec2(vT*7.+3.,2.))+.01*vnoise(vec2(vT*30.,5.));
+  float tear = .90+.07*abs(vT)+.03*step(.5,fract(vT*3.5));
   if (vS>tear) discard;
   if (uInkPass>0.) { gl_FragColor = vec4(.13,.0,.035,1.); return; }
   vec3 c = vFace>0. ? vec3(.92,.13,.11) : vec3(.60,.04,.08);
@@ -57,7 +57,7 @@ export function scarf() {
   for (let i = 0; i <= N; i++) for (const s of [-1, 1]) { pos.push(i / N, 0, 0); side.push(s); }
   for (let i = 0; i < N; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('side', new THREE.Float32BufferAttribute(side, 1)); g.setIndex(idx);
-  const u = { uP: { value: PATHS[0].map((p) => new THREE.Vector2(...p)) }, uHead: { value: -1 }, uLen: { value: 0.62 }, uTime: { value: 0 }, uWidth: { value: 0.075 }, uAsp: { value: 1 } };
+  const u = { uP: { value: PATHS[0].map((p) => new THREE.Vector2(...p)) }, uHead: { value: -1 }, uLen: { value: 0.62 }, uTime: { value: 0 }, uWidth: { value: 0.062 }, uAsp: { value: 1 } };
   const scene = new THREE.Scene();
   [0.012, 0].forEach((ink, i) => {
     const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms: { ...u, uInkPass: { value: ink } }, side: THREE.DoubleSide, depthTest: false, depthWrite: false }));

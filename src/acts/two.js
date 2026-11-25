@@ -7,7 +7,7 @@ import { cam, $, say, slamIn, smooth } from './kit.js';
 // The brothers, and the scarf they share.
 export function two() {
   const el = $('#two'), scene = new THREE.Scene(), camera = cam(35);
-  const bg = new Layer(tex('./art/two.webp'), { z: -4, cover: 1.2, order: 0, depth: tex('./art/two_d.webp'), water: 0.008, horizon: 0.37 });
+  const bg = new Layer(tex('./art/two.webp'), { z: -4, cover: 1.2, y: 0.05, order: 0, depth: tex('./art/two_d.webp'), water: 0.008, horizon: 0.37 });
   bg.place(camera); scene.add(bg.mesh);
   const petals = particles({ kind: 'petal', n: 70, box: [20, 12, 10], size: 0.06, c1: 0xfff1d6, c2: 0xffc38a, seed: 61 });
   scene.add(petals.mesh);

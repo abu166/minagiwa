@@ -8,7 +8,7 @@ import { cam, $, slamIn, seg, smooth, outExpo, isPortrait } from './kit.js';
 export function oni({ stage, fx, sound }) {
   const el = $('#oni'), scene = new THREE.Scene(), camera = cam(35);
   const bg = new Layer(tex('./art/oni_wide.webp'), { z: -4, cover: 1.2, order: 0, depth: tex('./art/oni_wide_d.webp'), water: 0.01, horizon: 0.25 });
-  const full = new Layer(tex('./art/onis.webp'), { z: -4, cover: 1.16, order: 1, depth: tex('./art/onis_d.webp') });
+  const full = new Layer(tex('./art/onis.webp'), { z: -4, cover: 1.3, y: -0.13, order: 1, depth: tex('./art/onis_d.webp') });
   for (const l of [bg, full]) { l.place(camera); scene.add(l.mesh); }
   const pa = new Panel(tex('./art/eyes.webp'), { border: 8, edge: 0xffffff, order: 80, depth: tex('./art/eyes_d.webp') }), pb = new Panel(tex('./art/oni.webp'), { border: 8, edge: 0xffffff, order: 81, depth: tex('./art/oni_d.webp') });
   scene.add(pa.mesh, pb.mesh); pa.mesh.visible = pb.mesh.visible = false; const st = { a: -1.05, b: 1.05 };
@@ -38,11 +38,11 @@ export function oni({ stage, fx, sound }) {
       const p = this.p ?? 0;
       bg.u.uTime.value = ash.u.uTime.value = rain.u.uTime.value = time;
       const s = Math.floor(time * 12), q = seg(p, 0.1, 0.16) * (1 - seg(p, 0.3, 0.36)) * 0.05;
-      camera.position.set(mouse.x * 0.3 + Math.sin(s * 7.7) * q, mouse.y * 0.2 + Math.cos(s * 5.1) * q + (0.5 - p) * 0.8, 10 - smooth(p) * 3.4);
+      camera.position.set(mouse.x * 0.3 + Math.sin(s * 7.7) * q, mouse.y * 0.2 + Math.cos(s * 5.1) * q + (0.5 - p) * 0.8, 10 - smooth(Math.min(p, 0.28) / 0.28) * 2.0 * (p < 0.28 ? 1 : 0));
       ash.u.uScroll.value = p * 8;
       bg.scale(1 + Math.sin(time * 0.9) * 0.004);
       bg.u.uPar.value.set(mouse.x * 0.014, (p - 0.3) * 0.03); bg.u.uDolly.value = smooth(p) * 0.12;
-      full.u.uTime.value = time; full.opacity = p > 0.28 ? 1 : 0; full.scale(1.22 - outExpo(seg(p, 0.28, 0.5)) * 0.16);
+      full.u.uTime.value = time; full.opacity = p > 0.28 ? 1 : 0; full.scale(1.12 - outExpo(seg(p, 0.28, 0.5)) * 0.12);
       full.u.uPar.value.set(mouse.x * 0.016, (p - 0.5) * 0.04);
       const w = innerWidth, h = innerHeight, on = p > 0.48 && p < 0.97; pa.mesh.visible = pb.mesh.visible = on;
       if (on) {

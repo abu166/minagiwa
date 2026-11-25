@@ -15,11 +15,12 @@ export function twelve({ stage, fx, sound, go }) {
   const tl = gsap.timeline({ paused: true });
   slamIn(tl, $('.tw-t1', el), 0.03, 0.14);
   say(tl, '#twelve .v1', 0.6, 0.66); say(tl, '#twelve .v2', 0.7, 0.95);
+  tl.fromTo('#twelve .count', { opacity: 1 }, { opacity: 0, duration: 0.025, immediateRender: false }, 0.972);
   tl.fromTo('#twelve .call', { autoAlpha: 0, scale: 0.4 }, { autoAlpha: 1, scale: 1, duration: 0.05, ease: 'back.out(2.4)' }, 0.72).to('#twelve .call', { autoAlpha: 0, scale: 1.6, duration: 0.03 }, 0.94).set({}, {}, 1);
   return {
     id: 'twelve', name: 'Twelve', el, scene, camera, tl, clear: 0x05091c, ink: 'water',
     out: { type: 'shatter', span: 1.05, center: [0.5, 0.56], ease: (t) => t, scarf: 3 },
-    look: (p) => ({ duo: outExpo(seg(p, 0, 0.05)) * (p < 0.999 ? 1 : 1), center: [0.5, 0.56], crack: seg(p, 0.4, 0.97) * 1.0, letterbox: 1 - seg(p, 0.96, 1), glow: 0.35, lines: 0.45 * seg(p, 0.9, 1) }),
+    look: (p) => ({ duo: outExpo(seg(p, 0, 0.05)) * (1 - smooth(seg(p, 0.6, 0.67))), center: [0.5, 0.56], crack: seg(p, 0.4, 0.97) * 1.0, letterbox: 1 - seg(p, 0.96, 1), glow: 0.35 + seg(p, 0.6, 0.7) * 0.3, lines: 0.45 * seg(p, 0.9, 1) }),
     beats: [[0.02, () => { stage.impact(120); sound.stop(); }], [0.93, () => { stage.beat(1.6); stage.impact(90); sound.heart(1.6); fx.boom(innerWidth / 2, innerHeight * 0.44, false); }]],
     resize() { oni.place(camera); mask.place(camera); },
     update({ time, mouse }) {

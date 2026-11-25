@@ -9,7 +9,7 @@ import { cam, $, say, slamIn, seg, smooth, outExpo, NUM } from './kit.js';
 const A = 0.3, B = 0.7;
 export function eleven({ stage, fx, sound }) {
   const el = $('#eleven'), scene = new THREE.Scene(), camera = cam(35);
-  const wave = new Layer(tex('./art/wave.webp'), { z: -4, cover: 1.22, order: 0, depth: tex('./art/wave_d.webp') });
+  const wave = new Layer(tex('./art/wave.webp'), { z: -4, cover: 1.22, y: 0.07, order: 0, depth: tex('./art/wave_d.webp') });
   const drift = new Layer(tex('./art/scarf.webp'), { z: -4, cover: 1.2, order: 5, depth: tex('./art/scarf_d.webp'), water: 0.006, horizon: 1.4 });
   const hold = new Panel(tex('./art/hold.webp'), { border: 9, edge: 0xffffff, order: 8 });
   for (const l of [wave, drift]) { l.place(camera); scene.add(l.mesh); }
@@ -44,8 +44,8 @@ export function eleven({ stage, fx, sound }) {
       if (!frozen) held = time; 
       wave.u.uTime.value = time; drift.u.uTime.value = time; spray.u.uTime.value = frozen ? held : time;
       const grow = seg(p, 0, 0.23), strain = seg(p, 0.235, 0.735), s = Math.floor(time * 14), q = strain * strain * 0.05 * (frozen ? 1 : 0);
-      camera.position.set(Math.sin(s * 9.1) * q, (0.5 - grow) * -0.5 + Math.cos(s * 7.7) * q, 10 - grow * 1.2 - k * 0.07);
-      wave.u.uPar.value.set(mouse.x * 0.01, -0.02 + grow * 0.03 + strain * 0.012); wave.u.uDolly.value = grow * 0.06 + strain * 0.1;
+      camera.position.set(Math.sin(s * 9.1) * q, (0.5 - grow) * -0.5 + Math.cos(s * 7.7) * q, 10 - grow * 0.4 - k * 0.07);
+      wave.u.uPar.value.set(mouse.x * 0.01, -0.02 + grow * 0.03 + strain * 0.012); wave.u.uDolly.value = strain * 0.1;
       const d = p > 0.737; drift.opacity = d ? 1 : 0; wave.opacity = d ? 0 : 1; spray.mesh.visible = !d;
       const e = seg(p, 0.74, 1); drift.scale(1.16 - e * 0.14); drift.u.uPar.value.set(mouse.x * 0.008, (e - 0.5) * 0.02); drift.mesh.rotation.z = (e - 0.5) * 0.08;
       // the close-up cuts in for three beats, then again at the end
@@ -53,7 +53,7 @@ export function eleven({ stage, fx, sound }) {
       hold.mesh.visible = false;
       if (on || on2) {
         const y0 = on ? 0.3 : 0.16, y1 = on ? 0.72 : 0.84, t = on ? seg(p, A + (3 / 11) * (B - A), A + (3.5 / 11) * (B - A)) : 1, x = (1 - outExpo(t)) * -w * 1.1;
-        hold.set([[x - 20, h * (y0 + 0.07)], [x + w + 20, h * (y0 - 0.03)], [x + w + 20, h * (y1 - 0.06)], [x - 20, h * (y1 + 0.04)]], { w, h, zoom: 1.1 + k * 0.02, focus: [0.5, 0.42] });
+        hold.set([[x - 20, h * (y0 + 0.07)], [x + w + 20, h * (y0 - 0.03)], [x + w + 20, h * (y1 - 0.06)], [x - 20, h * (y1 + 0.04)]], { w, h, zoom: 1.26 + k * 0.02, focus: [0.08, 0.42] });
       }
     },
   };

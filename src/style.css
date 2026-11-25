@@ -110,13 +110,14 @@ main > .act + .act { margin-top: -100vh; }
 
 /* ── voice ── */
 .vo { position: absolute; left: 50%; bottom: 9vh; width: max-content; max-width: min(86vw, 34em); margin-left: 0; translate: -50% 0; text-align: center; font: 700 clamp(19px, 2vw, 34px)/1.35 var(--body); color: #fff; paint-order: stroke; -webkit-text-stroke: 6px var(--ink); stroke-linejoin: round; visibility: hidden; z-index: 6; }
+.vo.side { left: var(--pad); bottom: auto; top: 44vh; translate: none; text-align: left; font-size: clamp(21px, 2.4vw, 42px); -webkit-text-stroke-color: #4a1420; }
 .vo.hi { bottom: auto; top: 17vh; left: var(--pad); translate: none; text-align: left; }
 .big { position: absolute; font-size: clamp(48px, 8.6vw, 190px); line-height: .96; letter-spacing: -.025em; color: #fff; text-shadow: .035em .045em 0 var(--ink); visibility: hidden; z-index: 4; }
 .two-t { left: var(--pad); top: 17vh; text-shadow: .035em .045em 0 #7a1f14; }
 .el-t1 { left: var(--pad); top: 17vh; font-size: clamp(44px, 7.6vw, 170px); }
 .el-t2 { left: var(--pad); bottom: 17vh; }
-.el-t3 { left: 0; right: 0; top: calc(50% - 1em); text-align: center; text-shadow: none; font-size: clamp(38px, 6.6vw, 150px); }
-.count { position: absolute; right: 9vw; top: 50%; translate: 0 -50%; font: 400 min(62vh, 44vw)/.9 'Yuji Boku', serif; white-space: pre; text-align: center; color: #fff; paint-order: stroke; -webkit-text-stroke: 22px #050a1e; z-index: 5; }
+.el-t3 { left: 0; right: 0; top: 19vh; text-align: center; text-shadow: none; font-size: clamp(38px, 6.6vw, 150px); }
+.count { position: absolute; left: 7vw; top: 50%; translate: 0 -50%; font: 400 min(62vh, 44vw)/.9 'Yuji Boku', serif; white-space: pre; text-align: center; color: #fff; paint-order: stroke; -webkit-text-stroke: 22px #050a1e; z-index: 5; }
 .count.dbl { font-size: min(39vh, 30vw); line-height: .98; }
 .count.hit { animation: hit .42s cubic-bezier(.1, 1.5, .3, 1) both; }
 @keyframes hit { from { scale: 1.9; opacity: .2; rotate: 5deg; } 40% { color: #e5261f; } }
@@ -134,9 +135,9 @@ main > .act + .act { margin-top: -100vh; }
 /* ── six ── */
 .fire-t, .fire-t2 { left: var(--pad); bottom: 12vh; font-size: clamp(38px, 6vw, 130px); text-shadow: none; paint-order: stroke; -webkit-text-stroke: .1em #12020a; color: #fff3c4; }
 .tw-t1 { left: var(--pad); bottom: 17vh; font-size: clamp(40px, 6.6vw, 150px); }
-.call { position: absolute; left: 0; right: 0; top: 47%; display: grid; place-items: center; visibility: hidden; z-index: 8; }
+.call { position: absolute; left: 0; right: 0; top: 64%; display: grid; place-items: center; visibility: hidden; z-index: 8; }
 .call sakuga-button { zoom: 1.9; --sk-pri: #e5261f; --sk-pri-ink: #fff; --sk-sh: 5px 6px 0 #fff; }
-.sk-t1 { left: 0; right: 0; bottom: 17vh; text-align: center; font-size: clamp(80px, 15vw, 320px); text-shadow: .03em .035em 0 #e5261f; }
+.sk-t1 { left: var(--pad); bottom: 16vh; font-size: clamp(76px, 11vw, 240px); text-shadow: .03em .035em 0 #e5261f; }
 .sk-t2 { left: var(--pad); bottom: 11vh; font-size: clamp(80px, 13vw, 280px); text-shadow: .03em .035em 0 #1f6fe0; }
 .st-t { left: 0; right: 0; bottom: 19vh; text-align: center; font-size: clamp(38px, 6vw, 130px); text-shadow: .035em .045em 0 #8a3a05; }
 
@@ -176,7 +177,7 @@ footer { position: relative; z-index: 2; background: #05060f; color: #fff; min-h
   .vo { bottom: 11vh; }
   .big { font-size: 13.4vw; }
   .el-t3, .tw-t1, .st-t { font-size: 10.4vw; }
-  .count { right: 2vw; top: 44%; font-size: 34vh; -webkit-text-stroke-width: 14px; }
+  .count { left: 5vw; top: 44%; font-size: 34vh; -webkit-text-stroke-width: 14px; }
   .count.dbl { font-size: 24vh; }
   .oni-t3 { font-size: 7.6vw; }
   .oni-t3 span:first-child { left: 5vw; top: 34vh; }
