@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { Layer, tex } from '../stage/layer.js';
 import { particles } from '../stage/particles.js';
-import { cam, $, $$, chars, seg, smooth } from './kit.js';
+import { cam, $, chars, seg, smooth } from './kit.js';
 
 export function oni({ stage, fx }) {
   const el = $('#oni'), scene = new THREE.Scene(), camera = cam(35);
@@ -11,7 +11,7 @@ export function oni({ stage, fx }) {
   const ash = particles({ kind: 'ember', n: 150, box: [20, 12, 12], size: 0.06, vel: [0.5, 0.9, 0.3], c1: 0xff3a2a, c2: 0xffb12a, seed: 12 });
   const rain = particles({ kind: 'rain', n: 160, box: [22, 14, 12], size: 0.11, vel: [-4, -16, 0], c1: 0xffd0c4, c2: 0xff5a44, seed: 17 });
   scene.add(ash.mesh, rain.mesh);
-  const t1 = chars($('.oni-t1', el).firstChild ? $('.oni-t1', el) : el);
+  const t1 = chars($('.oni-t1', el));
   const tl = gsap.timeline({ paused: true });
   tl.fromTo(t1, { yPercent: 120, autoAlpha: 0, rotate: 12 }, { yPercent: 0, autoAlpha: 1, rotate: 0, stagger: 0.004, duration: 0.07, ease: 'back.out(2)' }, 0.1)
     .to('.oni-t1', { scale: 1.06, duration: 0.2, ease: 'none' }, 0.2)

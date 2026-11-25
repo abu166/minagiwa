@@ -24,13 +24,19 @@ export function backdrop(frag, uniforms) {
 
 // Split a heading into per-character spans, keeping the text readable to assistive tech.
 export function chars(el) {
-  const text = el.textContent.trim(); el.setAttribute('aria-label', text); el.textContent = '';
+  const lines = [[]];
+  for (const n of [...el.childNodes]) { if (n.nodeName === 'BR') lines.push([]); else lines.at(-1).push(n.textContent); }
+  const text = lines.map((l) => l.join('').replace(/[ \n]+/g, ' ').trim());
+  el.setAttribute('aria-label', text.join(' ').replace(/\u00a0/g, ' ')); el.textContent = '';
   const out = [];
-  text.split(/\s+/).forEach((w, i) => {
-    if (i) el.append(' ');
-    const ws = document.createElement('span'); ws.className = 'w'; ws.ariaHidden = 'true';
-    for (const ch of w) { const s = document.createElement('span'); s.className = 'c'; s.textContent = ch; ws.append(s); out.push(s); }
-    el.append(ws);
+  text.forEach((line, li) => {
+    if (li) el.append(document.createElement('br'));
+    line.split(' ').forEach((w, i) => {
+      if (i) el.append(' ');
+      const ws = document.createElement('span'); ws.className = 'w'; ws.ariaHidden = 'true';
+      for (const ch of w) { const s = document.createElement('span'); s.className = 'c'; s.textContent = ch; ws.append(s); out.push(s); }
+      el.append(ws);
+    });
   });
   return out;
 }
